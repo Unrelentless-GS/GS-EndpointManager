@@ -9,7 +9,8 @@
 private let EndpointManagerSaveKey = "GSEndpointManagerSaveKey"
 private let EndpointManagerSaveSelectedKey = "GSEndpointManagerSaveSelectedKey"
 
-internal class EndpointSaveManager {
+/// Used to manage all the saving/loading
+internal class EndpointDataManager {
 
     static func saveEndpoints() {
         if let endpoints = EndpointManager.endpoints {

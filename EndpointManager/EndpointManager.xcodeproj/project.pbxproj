@@ -13,7 +13,7 @@
 		126C4B501E69008100D634AF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B4F1E69008100D634AF /* Endpoint.swift */; };
 		126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B511E69016B00D634AF /* EndpointNewViewController.swift */; };
 		126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */; };
-		126C4B6D1E6D26E100D634AF /* EndpointSaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B6C1E6D26E100D634AF /* EndpointSaveManager.swift */; };
+		126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		126C4B4F1E69008100D634AF /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		126C4B511E69016B00D634AF /* EndpointNewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointNewViewController.swift; sourceTree = "<group>"; };
 		126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTableViewCell.swift; sourceTree = "<group>"; };
-		126C4B6C1E6D26E100D634AF /* EndpointSaveManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointSaveManager.swift; sourceTree = "<group>"; };
+		126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			children = (
 				126C4B4F1E69008100D634AF /* Endpoint.swift */,
 				126C4B491E67DDB000D634AF /* EndpointManager.swift */,
-				126C4B6C1E6D26E100D634AF /* EndpointSaveManager.swift */,
+				126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */,
 				126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */,
 				126C4B511E69016B00D634AF /* EndpointNewViewController.swift */,
 				126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */,
@@ -151,7 +151,7 @@
 				126C4B4A1E67DDB000D634AF /* EndpointManager.swift in Sources */,
 				126C4B501E69008100D634AF /* Endpoint.swift in Sources */,
 				126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */,
-				126C4B6D1E6D26E100D634AF /* EndpointSaveManager.swift in Sources */,
+				126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */,
 				126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */,
 				126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */,
 			);

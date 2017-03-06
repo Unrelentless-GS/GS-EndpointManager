@@ -15,6 +15,14 @@
     // The url of the endpoint
     public var url: NSURL?
 
+    /**
+     Initialize the endpoint object
+
+     - parameter name: the name of the endpoint
+     - parameter url:  the url of the endpoint
+
+     - returns: initialized endpoint
+     */
     public init(name: String?, url: NSURL?) {
         self.name = name
         self.url = url

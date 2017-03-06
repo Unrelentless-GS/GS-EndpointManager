@@ -13,7 +13,7 @@
  
  Subscribe to the **`EndpointChangedNotification`** notification for changes to selected endpoint
 */
-@objc public class EndpointManager: NSObject {
+@objc final public class EndpointManager: NSObject {
     
     public static let EndpointChangedNotification = "GSEndpointChangedNotification"
 
@@ -63,10 +63,15 @@
         self.endpoints = [Endpoint]()
     }
 
+    /**
+     Populate the endpoints
+
+     - parameter endpoints: an array of endpoints
+     */
     public static func populateEndpoints(endpoints: [Endpoint]) {
-        if let existingEndpoints = EndpointSaveManager.loadEndpoints() {
+        if let existingEndpoints = EndpointDataManager.loadEndpoints() {
             defaultManager.endpoints = existingEndpoints
-            defaultManager.selectedEndpoint = EndpointSaveManager.loadSelectedEndpoint()
+            defaultManager.selectedEndpoint = EndpointDataManager.loadSelectedEndpoint()
         } else {
             defaultManager.endpoints = endpoints
         }

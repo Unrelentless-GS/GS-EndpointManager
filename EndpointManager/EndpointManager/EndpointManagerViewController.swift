@@ -60,7 +60,7 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
         guard let index = selectedIndex, let endpoints = EndpointManager.endpoints else { return }
         EndpointManager.selectedEndpoint = endpoints[index]
-        EndpointSaveManager.saveEndpoints()
+        EndpointDataManager.saveEndpoints()
     }
 
     @objc private func newHandler(item: UIBarButtonItem) {
