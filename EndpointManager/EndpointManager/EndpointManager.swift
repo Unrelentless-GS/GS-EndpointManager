@@ -22,13 +22,6 @@
         get {
             return defaultManager.endpoints
         }
-
-        set {
-            defaultManager.endpoints = newValue
-            if selectedEndpointIndex == nil {
-                selectedEndpoint = nil
-            }
-        }
     }
 
     /// The selected endpoint
@@ -50,7 +43,13 @@
 
     internal static var defaultManager = EndpointManager()
 
-    internal var endpoints = [Endpoint]?()
+    internal var endpoints = [Endpoint]?() {
+        didSet {
+            if selectedEndpointIndex == nil {
+                selectedEndpoint = nil
+            }
+        }
+    }
     internal var window = UIWindow()
     internal var selectedEndpoint: Endpoint?
     internal var selectedEndpointIndex: Int? {
@@ -62,6 +61,15 @@
     //This prevents others from using the default '()' initializer for this class.
     private override init() {
         self.endpoints = [Endpoint]()
+    }
+
+    public static func populateEndpoints(endpoints: [Endpoint]) {
+        if let existingEndpoints = EndpointSaveManager.loadEndpoints() {
+            defaultManager.endpoints = existingEndpoints
+            defaultManager.selectedEndpoint = EndpointSaveManager.loadSelectedEndpoint()
+        } else {
+            defaultManager.endpoints = endpoints
+        }
     }
 
     /**

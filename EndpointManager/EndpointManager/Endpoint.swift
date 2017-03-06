@@ -7,7 +7,7 @@
 //
 
 /// An Endpoint object containing a name and url
-@objc public class Endpoint: NSObject {
+@objc public class Endpoint: NSObject, NSCoding {
 
     /// The name of the Endpoint
     public var name: String?
@@ -18,5 +18,15 @@
     public init(name: String?, url: NSURL?) {
         self.name = name
         self.url = url
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        name = aDecoder.decodeObjectForKey("name") as? String
+        url = aDecoder.decodeObjectForKey("url") as? NSURL
+    }
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(url, forKey: "url")
     }
 }

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let endpoint2 = Endpoint(name: "Instance 1", url: NSURL(string: "https://instance1"))
         let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instance2"))
 
-        EndpointManager.endpoints = [endpoint1, endpoint2, endpoint3]
+        EndpointManager.populateEndpoints([endpoint1, endpoint2, endpoint3])
 
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 

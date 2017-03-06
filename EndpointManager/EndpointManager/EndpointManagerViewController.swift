@@ -14,7 +14,7 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
     private var selectedIndex: Int? {
         guard let endpoints = EndpointManager.endpoints, let selectedEndpoint = selectedEndpoint else { return nil }
-        return endpoints.indexOf(selectedEndpoint)
+        return endpoints.indexOf{($0.name == selectedEndpoint.name) && ($0.url == selectedEndpoint.url)}
     }
 
     private var selectedEndpoint: Endpoint?
@@ -60,6 +60,7 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
         guard let index = selectedIndex, let endpoints = EndpointManager.endpoints else { return }
         EndpointManager.selectedEndpoint = endpoints[index]
+        EndpointSaveManager.saveEndpoints()
     }
 
     @objc private func newHandler(item: UIBarButtonItem) {
@@ -69,7 +70,7 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         newVC.completion = { [unowned self] endpoint, error in
             guard error == nil else { return }
             guard let validEndpoint = endpoint else { return }
-            EndpointManager.endpoints?.append(validEndpoint)
+            EndpointManager.defaultManager.endpoints?.append(validEndpoint)
 
             self.selectedEndpoint = validEndpoint
             self.endpointTableView.reloadData()
@@ -140,7 +141,7 @@ extension EndpointManagerViewController {
     }
 
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        EndpointManager.endpoints?.removeAtIndex(indexPath.row)
+        EndpointManager.defaultManager.endpoints?.removeAtIndex(indexPath.row)
         tableView.reloadData()
         updateSelections(selectedIndex)
     }
