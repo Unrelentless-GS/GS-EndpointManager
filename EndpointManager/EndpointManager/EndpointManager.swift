@@ -32,15 +32,6 @@
         }
     }
 
-    /// Set this to your main Window if you want the Endpoint Manager to handle all presentation of the endpoint manager screen
-    /// by shaking the device.
-    /// You can also call `presentEndpointManager` to manually present it from your own action.
-    public static var window: EndpointWindow? {
-        get {
-            return defaultManager.window
-        }
-    }
-
     internal static func dismissVC() {
         defaultManager.dimiss()
     }
@@ -54,24 +45,28 @@
     internal static var defaultManager = EndpointManager()
 
     internal var endpoints = [Endpoint]?()
+    internal var window = UIWindow()
     internal var selectedEndpoint: Endpoint?
-    internal lazy var window: EndpointWindow = {
-        UIApplication.sharedApplication().applicationSupportsShakeToEdit = true
-        let window = EndpointWindow()
-        window.frame = UIScreen.mainScreen().bounds
-        return window
-    }()
     internal var selectedEndpointIndex: Int? {
         return self.endpoints?.indexOf{$0.name == self.selectedEndpoint?.name}
     }
 
-    internal func dimiss() {
-        window.dismissSub()
-    }
+    private weak var privateWindow: UIWindow?
 
     private override init() {} //This prevents others from using the default '()' initializer for this class.
 
-    public func presentEndpointManager() {
-        
+    public static func presentEndpointManagerFrom(window: UIWindow) {
+        defaultManager.privateWindow = window
+
+        defaultManager.window.frame = window.bounds
+        let vc = EndpointManagerViewController()
+
+        let nc = UINavigationController(rootViewController: vc)
+        defaultManager.window.rootViewController = nc
+        defaultManager.window.makeKeyAndVisible()
+    }
+
+    internal func dimiss() {
+        privateWindow?.makeKeyAndVisible()
     }
 }

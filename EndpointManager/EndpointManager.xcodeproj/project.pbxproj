@@ -10,7 +10,6 @@
 		126C4B361E67DC3400D634AF /* EndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 126C4B351E67DC3400D634AF /* EndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */; };
 		126C4B4A1E67DDB000D634AF /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B491E67DDB000D634AF /* EndpointManager.swift */; };
-		126C4B4E1E67E88400D634AF /* EndpointWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B4D1E67E88400D634AF /* EndpointWindow.swift */; };
 		126C4B501E69008100D634AF /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B4F1E69008100D634AF /* Endpoint.swift */; };
 		126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B511E69016B00D634AF /* EndpointNewViewController.swift */; };
 		126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */; };
@@ -22,7 +21,6 @@
 		126C4B371E67DC3400D634AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointManagerViewController.swift; sourceTree = "<group>"; };
 		126C4B491E67DDB000D634AF /* EndpointManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
-		126C4B4D1E67E88400D634AF /* EndpointWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointWindow.swift; sourceTree = "<group>"; };
 		126C4B4F1E69008100D634AF /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		126C4B511E69016B00D634AF /* EndpointNewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointNewViewController.swift; sourceTree = "<group>"; };
 		126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTableViewCell.swift; sourceTree = "<group>"; };
@@ -59,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				126C4B4F1E69008100D634AF /* Endpoint.swift */,
-				126C4B4D1E67E88400D634AF /* EndpointWindow.swift */,
 				126C4B491E67DDB000D634AF /* EndpointManager.swift */,
 				126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */,
 				126C4B511E69016B00D634AF /* EndpointNewViewController.swift */,
@@ -148,7 +145,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				126C4B4E1E67E88400D634AF /* EndpointWindow.swift in Sources */,
 				126C4B4A1E67DDB000D634AF /* EndpointManager.swift in Sources */,
 				126C4B501E69008100D634AF /* Endpoint.swift in Sources */,
 				126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */,

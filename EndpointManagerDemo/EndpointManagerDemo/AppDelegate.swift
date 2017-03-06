@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
-        window = EndpointManager.window
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
         let endpoint1 = Endpoint(name: "Instance 0", url: "https://instance0")
         let endpoint2 = Endpoint(name: "Instance 1", url: "https://instance1")

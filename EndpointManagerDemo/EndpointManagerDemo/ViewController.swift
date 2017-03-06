@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EndpointManager
 
 class ViewController: UIViewController {
 
@@ -19,6 +20,10 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func touchMe(sender: UIButton) {
+        EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow!)
     }
 }
 
