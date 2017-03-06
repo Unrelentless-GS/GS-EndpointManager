@@ -59,7 +59,9 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         let newVC = EndpointNewViewController()
         newVC.modalPresentationStyle = .Popover
         newVC.preferredContentSize = CGSizeMake(200, 400)
-        newVC.completion = { [unowned self] endpoint in
+        newVC.completion = { [unowned self] endpoint, error in
+            guard error == nil else { return }
+            guard let endpoint = endpoint else { return }
             self.updateEndpointWith(endpoint)
 
             let index = EndpointManager.endpoints?.indexOf{$0.name == endpoint.name}
@@ -110,14 +112,12 @@ extension EndpointManagerViewController {
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell")
 
-        defer {
-            cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
-            cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url
-        }
-
         if cell == nil {
             cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
         }
+
+            cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
+            cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
 
         return cell!
     }

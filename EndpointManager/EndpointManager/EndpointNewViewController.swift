@@ -8,7 +8,11 @@
 
 import UIKit
 
-internal typealias EndpointCompletion = (Endpoint) -> ()
+internal enum URLError: ErrorType {
+    case MalformedURL
+}
+
+internal typealias EndpointCompletion = (Endpoint?, URLError?) -> ()
 
 internal class EndpointNewViewController: UIViewController {
 
@@ -87,8 +91,13 @@ internal class EndpointNewViewController: UIViewController {
     }
 
     @objc private func doneHandler() {
-        let endpoint = Endpoint(name: nameTextField.text, url: urlTextField.text)
-        completion?(endpoint)
+        guard let text = urlTextField.text else { return }
+        guard let url = NSURL(string: text) where UIApplication.sharedApplication().canOpenURL(url) else {
+            completion?(nil, .MalformedURL)
+            return
+        }
+        let endpoint = Endpoint(name: nameTextField.text, url: url)
+        completion?(endpoint, nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
