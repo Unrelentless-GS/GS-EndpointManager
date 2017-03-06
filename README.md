@@ -36,11 +36,10 @@ Add them to the Endpoint Manager using:
 ```
 
 To present the endpoint manager, call:
-_note:_ make sure to pass in your current working window to overlay the Endpoint Manager on top of.
-
 ```
 EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow!)
 ```
+_note:_ make sure to pass in your current working window to overlay the Endpoint Manager on top of.
 
 
 You can also observe the `EndpointManager.EndpointChangedNotification` notification to check for changes to the selected endpoint.
