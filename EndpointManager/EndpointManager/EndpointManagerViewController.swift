@@ -50,7 +50,9 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
     override internal func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        updateSelections(EndpointManager.selectedEndpointIndex)
+
+        selectedEndpoint = EndpointManager.selectedEndpoint
+        updateSelections(selectedIndex)
     }
 
     @objc private func doneHandler() {
@@ -66,10 +68,10 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         newVC.preferredContentSize = CGSizeMake(200, 400)
         newVC.completion = { [unowned self] endpoint, error in
             guard error == nil else { return }
-            guard let endpoint = endpoint else { return }
-            self.updateEndpointsWith(endpoint)
+            guard let validEndpoint = endpoint else { return }
+            EndpointManager.endpoints?.append(validEndpoint)
 
-            self.selectedEndpoint = endpoint
+            self.selectedEndpoint = validEndpoint
             self.endpointTableView.reloadData()
             self.updateSelections(self.selectedIndex)
         }
@@ -88,12 +90,6 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
         self.navigationItem.leftBarButtonItem = doneButton
         self.navigationItem.rightBarButtonItem = newButton
-    }
-
-    private func updateEndpointsWith(endpoint: Endpoint?) {
-        guard let endpoint = endpoint else { return }
-        EndpointManager.endpoints?.append(endpoint)
-        guard let endpoints = EndpointManager.endpoints else { return }
     }
 
     private func updateSelections(row: Int?) {

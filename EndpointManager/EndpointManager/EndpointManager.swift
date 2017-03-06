@@ -59,7 +59,10 @@
 
     private weak var privateWindow: UIWindow?
 
-    private override init() {} //This prevents others from using the default '()' initializer for this class.
+    //This prevents others from using the default '()' initializer for this class.
+    private override init() {
+        self.endpoints = [Endpoint]()
+    }
 
     /**
      Present the endpoint manager screen
