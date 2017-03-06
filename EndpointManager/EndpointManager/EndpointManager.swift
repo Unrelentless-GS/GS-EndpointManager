@@ -32,10 +32,6 @@
         }
     }
 
-    internal static func dismissVC() {
-        defaultManager.dimiss()
-    }
-
     internal static var selectedEndpointIndex: Int? {
         get {
             return defaultManager.selectedEndpointIndex
@@ -64,6 +60,10 @@
         let nc = UINavigationController(rootViewController: vc)
         defaultManager.window.rootViewController = nc
         defaultManager.window.makeKeyAndVisible()
+    }
+
+    internal static func dismissVC() {
+        defaultManager.dimiss()
     }
 
     internal func dimiss() {

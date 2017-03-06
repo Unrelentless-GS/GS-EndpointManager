@@ -125,10 +125,15 @@ extension EndpointManagerViewController {
 
 //MARK: delegate
 extension EndpointManagerViewController {
+
     internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         updateEndpointWith(EndpointManager.endpoints?[indexPath.row])
         updateSelections(indexPath.row)
+    }
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return EndpointManager.selectedEndpoint != EndpointManager.endpoints?[indexPath.row]
     }
 
     internal func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
