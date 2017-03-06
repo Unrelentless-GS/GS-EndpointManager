@@ -64,7 +64,7 @@
     /**
      Present the endpoint manager screen
 
-     - parameter window: a reference to your current working window. If in doubt, pass in **`UIApplication.sharedApplication().keyWindow`**
+     - parameter window: a reference to your current working window. if in doubt, pass in **`UIApplication.sharedApplication().keyWindow`**
      */
     public static func presentEndpointManagerFrom(window: UIWindow) {
         defaultManager.privateWindow = window

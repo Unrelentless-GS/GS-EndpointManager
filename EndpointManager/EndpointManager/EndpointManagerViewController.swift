@@ -12,7 +12,12 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
     private let endpointTableView = UITableView()
 
-    private var selectedIndex: Int?
+    private var selectedIndex: Int? {
+        guard let endpoints = EndpointManager.endpoints, let selectedEndpoint = selectedEndpoint else { return nil }
+        return endpoints.indexOf(selectedEndpoint)
+    }
+
+    private var selectedEndpoint: Endpoint?
 
     override internal func viewDidLoad() {
         super.viewDidLoad()
@@ -62,11 +67,11 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         newVC.completion = { [unowned self] endpoint, error in
             guard error == nil else { return }
             guard let endpoint = endpoint else { return }
-            self.updateEndpointWith(endpoint)
+            self.updateEndpointsWith(endpoint)
 
-            let index = EndpointManager.endpoints?.indexOf{$0.name == endpoint.name}
+            self.selectedEndpoint = endpoint
             self.endpointTableView.reloadData()
-            self.updateSelections(index)
+            self.updateSelections(self.selectedIndex)
         }
 
         let popover = newVC.popoverPresentationController
@@ -85,13 +90,10 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         self.navigationItem.rightBarButtonItem = newButton
     }
 
-    private func updateEndpointWith(endpoint: Endpoint?) {
+    private func updateEndpointsWith(endpoint: Endpoint?) {
         guard let endpoint = endpoint else { return }
+        EndpointManager.endpoints?.append(endpoint)
         guard let endpoints = EndpointManager.endpoints else { return }
-        if !endpoints.contains({$0.name == endpoint.name}) {
-            EndpointManager.endpoints?.append(endpoint)
-        }
-        EndpointManager.selectedEndpoint = endpoint
     }
 
     private func updateSelections(row: Int?) {
@@ -116,8 +118,8 @@ extension EndpointManagerViewController {
             cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
         }
 
-            cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
-            cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
+        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
+        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
 
         return cell!
     }
@@ -128,12 +130,13 @@ extension EndpointManagerViewController {
 
     internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        updateEndpointWith(EndpointManager.endpoints?[indexPath.row])
-        updateSelections(indexPath.row)
+        guard let endpoints = EndpointManager.endpoints else { return }
+        selectedEndpoint = endpoints[indexPath.row]
+        updateSelections(selectedIndex)
     }
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return EndpointManager.selectedEndpoint != EndpointManager.endpoints?[indexPath.row]
+        return selectedIndex != indexPath.row
     }
 
     internal func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
@@ -143,6 +146,6 @@ extension EndpointManagerViewController {
     internal func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         EndpointManager.endpoints?.removeAtIndex(indexPath.row)
         tableView.reloadData()
-        updateSelections(EndpointManager.selectedEndpointIndex)
+        updateSelections(selectedIndex)
     }
 }
