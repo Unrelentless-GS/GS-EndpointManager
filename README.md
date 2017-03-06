@@ -37,7 +37,7 @@ Add them to the Endpoint Manager using:
 
 To present the endpoint manager, call:
 ```
-EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow!)
+EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow)
 ```
 _note:_ make sure to pass in your current working window to overlay the Endpoint Manager on top of.
 
