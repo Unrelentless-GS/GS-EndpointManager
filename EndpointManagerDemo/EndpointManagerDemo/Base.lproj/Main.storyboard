@@ -17,19 +17,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CFa-JG-tY7">
-                                <rect key="frame" x="240" y="260" width="79" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CFa-JG-tY7">
+                                <rect key="frame" x="260" y="285" width="79" height="30"/>
                                 <state key="normal" title="TOUCH ME"/>
                                 <connections>
                                     <action selector="touchMe:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ONL-B0-EZm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xl-zV-njh">
+                                <rect key="frame" x="279" y="340" width="42" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7Xl-zV-njh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ijh-AV-LmV"/>
+                            <constraint firstItem="7Xl-zV-njh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="dKJ-fO-p7W"/>
+                            <constraint firstItem="CFa-JG-tY7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="krJ-iX-6vP"/>
+                            <constraint firstItem="CFa-JG-tY7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xRU-lh-pjo"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="urlLabel" destination="7Xl-zV-njh" id="HqS-4U-x2D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="40" y="125"/>
         </scene>
     </scenes>
 </document>

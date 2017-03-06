@@ -11,10 +11,18 @@ import EndpointManager
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var urlLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         view.backgroundColor = .cyanColor()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(endpointDidChange), name: EndpointManager.EndpointChangedNotification, object: nil)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: EndpointManager.EndpointChangedNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,6 +32,10 @@ class ViewController: UIViewController {
 
     @IBAction func touchMe(sender: UIButton) {
         EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow!)
+    }
+
+    @objc private func endpointDidChange() {
+        urlLabel.text = EndpointManager.selectedEndpoint?.name
     }
 }
 

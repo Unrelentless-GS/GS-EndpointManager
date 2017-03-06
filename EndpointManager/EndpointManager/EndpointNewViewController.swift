@@ -94,6 +94,13 @@ internal class EndpointNewViewController: UIViewController {
         guard let text = urlTextField.text else { return }
         guard let url = NSURL(string: text) where UIApplication.sharedApplication().canOpenURL(url) else {
             completion?(nil, .MalformedURL)
+
+            let animation = CABasicAnimation(keyPath: "backgroundColor")
+            animation.toValue = UIColor.redColor().CGColor
+            animation.duration = 0.5
+            animation.autoreverses = true
+
+            urlTextField.layer.addAnimation(animation, forKey: "animation")
             return
         }
         let endpoint = Endpoint(name: nameTextField.text, url: url)

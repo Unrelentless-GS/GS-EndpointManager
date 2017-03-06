@@ -6,7 +6,16 @@
 //  Copyright © 2017 Pavel Boryseiko. All rights reserved.
 //
 
+/** 
+ The Endpoint Manager
+ 
+ Your one point of contact with endpoints
+ 
+ Subscribe to the **`EndpointChangedNotification`** notification for changes to selected endpoint
+*/
 @objc public class EndpointManager: NSObject {
+    
+    public static let EndpointChangedNotification = "GSEndpointChangedNotification"
 
     /// The array of endpoints
     public static var endpoints: [Endpoint]? {
@@ -29,6 +38,7 @@
         }
         set {
             defaultManager.selectedEndpoint = newValue
+            NSNotificationCenter.defaultCenter().postNotificationName(EndpointChangedNotification, object: nil)
         }
     }
 
@@ -51,6 +61,11 @@
 
     private override init() {} //This prevents others from using the default '()' initializer for this class.
 
+    /**
+     Present the endpoint manager screen
+
+     - parameter window: a reference to your current working window. If in doubt, pass in **`UIApplication.sharedApplication().keyWindow`**
+     */
     public static func presentEndpointManagerFrom(window: UIWindow) {
         defaultManager.privateWindow = window
 
