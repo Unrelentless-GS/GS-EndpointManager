@@ -19,11 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        let endpoint1 = Endpoint(name: "Instance 0", url: NSURL(string: "https://instance0"))
-        let endpoint2 = Endpoint(name: "Instance 1", url: NSURL(string: "https://instance1"))
-        let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instance2"))
+        let endpoint1 = Endpoint(name: "Instance 0", url: NSURL(string: "https://google.com.au"))
+        let endpoint2 = Endpoint(name: "Instance 1", url: NSURL(string: "https://instance1.com"))
+        let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instance2.com"))
 
-        EndpointManager.populateEndpoints([endpoint1, endpoint2, endpoint3])
+        EndpointManager.populate([endpoint1, endpoint2, endpoint3])
+        EndpointLogger.monitor([endpoint1, endpoint2, endpoint3])
+
+        NSURLProtocol.registerClass(EndpointLogger.endpointProtocol)
 
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 

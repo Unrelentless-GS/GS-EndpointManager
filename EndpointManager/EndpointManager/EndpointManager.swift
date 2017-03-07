@@ -17,6 +17,8 @@
     
     public static let EndpointChangedNotification = "GSEndpointChangedNotification"
 
+    internal static var defaultManager = EndpointManager()
+
     /// The array of endpoints
     public static var endpoints: [Endpoint]? {
         get {
@@ -41,8 +43,6 @@
         }
     }
 
-    internal static var defaultManager = EndpointManager()
-
     internal var endpoints = [Endpoint]?() {
         didSet {
             if selectedEndpointIndex == nil {
@@ -50,6 +50,7 @@
             }
         }
     }
+
     internal var window = UIWindow()
     internal var selectedEndpoint: Endpoint?
     internal var selectedEndpointIndex: Int? {
@@ -68,7 +69,7 @@
 
      - parameter endpoints: an array of endpoints
      */
-    public static func populateEndpoints(endpoints: [Endpoint]) {
+    public static func populate(endpoints: [Endpoint]) {
         if let existingEndpoints = EndpointDataManager.loadEndpoints() {
             defaultManager.endpoints = existingEndpoints
             defaultManager.selectedEndpoint = EndpointDataManager.loadSelectedEndpoint()

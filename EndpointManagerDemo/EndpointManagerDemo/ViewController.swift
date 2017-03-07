@@ -12,6 +12,7 @@ import EndpointManager
 class ViewController: UIViewController {
 
     @IBOutlet weak var urlLabel: UILabel!
+    @IBOutlet weak var webView: UIWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,16 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func testNetwork(sender: AnyObject) {
+        guard let url = EndpointManager.selectedEndpoint?.url else { return }
+        let request = NSURLRequest(URL: url)
+        webView.loadRequest(request)
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) { [weak self] in
+            self?.webView.stopLoading()
+        }
     }
 
     @IBAction func touchMe(sender: UIButton) {

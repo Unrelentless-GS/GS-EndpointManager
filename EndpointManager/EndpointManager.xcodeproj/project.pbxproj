@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		120213541E6E6C5600BF004C /* EndpointLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120213531E6E6C5600BF004C /* EndpointLogger.swift */; };
+		124F1E9C1E6E5EF900C76156 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */; };
 		126C4B361E67DC3400D634AF /* EndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 126C4B351E67DC3400D634AF /* EndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */; };
 		126C4B4A1E67DDB000D634AF /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B491E67DDB000D634AF /* EndpointManager.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		120213531E6E6C5600BF004C /* EndpointLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLogger.swift; sourceTree = "<group>"; };
+		124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		126C4B321E67DC3400D634AF /* EndpointManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EndpointManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		126C4B351E67DC3400D634AF /* EndpointManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndpointManager.h; sourceTree = "<group>"; };
 		126C4B371E67DC3400D634AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,6 +62,8 @@
 		126C4B341E67DC3400D634AF /* EndpointManager */ = {
 			isa = PBXGroup;
 			children = (
+				120213531E6E6C5600BF004C /* EndpointLogger.swift */,
+				124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */,
 				126C4B4F1E69008100D634AF /* Endpoint.swift */,
 				126C4B491E67DDB000D634AF /* EndpointManager.swift */,
 				126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */,
@@ -148,12 +154,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				120213541E6E6C5600BF004C /* EndpointLogger.swift in Sources */,
 				126C4B4A1E67DDB000D634AF /* EndpointManager.swift in Sources */,
 				126C4B501E69008100D634AF /* Endpoint.swift in Sources */,
 				126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */,
 				126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */,
 				126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */,
 				126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */,
+				124F1E9C1E6E5EF900C76156 /* EndpointProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

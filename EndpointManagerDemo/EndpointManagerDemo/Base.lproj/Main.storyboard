@@ -30,10 +30,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7JA-CI-Oau">
+                                <rect key="frame" x="180" y="436" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Px6-mr-ZFs"/>
+                                    <constraint firstAttribute="height" constant="128" id="mp7-Ke-qy7"/>
+                                </constraints>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10H-eB-ZQw">
+                                <rect key="frame" x="242" y="385" width="116" height="30"/>
+                                <state key="normal" title="TEST ENDPOINT"/>
+                                <connections>
+                                    <action selector="testNetwork:" destination="BYZ-38-t0r" eventType="touchUpInside" id="boW-dA-YiO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="10H-eB-ZQw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B8e-aK-fhT"/>
+                            <constraint firstItem="7JA-CI-Oau" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="200" id="GBP-3f-h6C"/>
                             <constraint firstItem="7Xl-zV-njh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ijh-AV-LmV"/>
+                            <constraint firstItem="7JA-CI-Oau" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JGX-M6-c0Y"/>
+                            <constraint firstItem="10H-eB-ZQw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="100" id="ave-ZG-O0s"/>
                             <constraint firstItem="7Xl-zV-njh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="dKJ-fO-p7W"/>
                             <constraint firstItem="CFa-JG-tY7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="krJ-iX-6vP"/>
                             <constraint firstItem="CFa-JG-tY7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xRU-lh-pjo"/>
@@ -41,6 +60,7 @@
                     </view>
                     <connections>
                         <outlet property="urlLabel" destination="7Xl-zV-njh" id="HqS-4U-x2D"/>
+                        <outlet property="webView" destination="7JA-CI-Oau" id="OdO-5u-ose"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
