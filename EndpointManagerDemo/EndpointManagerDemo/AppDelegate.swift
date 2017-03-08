@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         EndpointManager.populate([endpoint1, endpoint2, endpoint3])
         EndpointLogger.monitor([endpoint1, endpoint2, endpoint3])
+        EndpointLogger.logToConsole = true
 
         NSURLProtocol.registerClass(EndpointLogger.endpointProtocol)
 
