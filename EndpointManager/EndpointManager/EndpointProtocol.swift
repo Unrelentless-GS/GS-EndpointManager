@@ -8,7 +8,7 @@
 
 @objc internal class EndpointProtocol: NSURLProtocol, NSURLSessionDataDelegate, NSURLSessionTaskDelegate {
 
-    private var dataTask: NSURLSessionDataTask?
+    private var dataTask: NSURLSessionTask?
     private var urlResponse: NSURLResponse?
     private var receivedData: NSMutableData?
 
@@ -16,10 +16,12 @@
         guard let endpoints = EndpointLogger.monitoredEndpoints else { return false }
         guard let urlString = request.URL?.absoluteString else { return false }
 
-        EndpointLogger.log(title: "Can init with:", message: request)
-
         let monitoredURLs = endpoints.flatMap{$0.url?.absoluteString}
         let shouldMonitor = monitoredURLs.contains{urlString.containsString($0)}
+
+        if let method = request.HTTPMethod where shouldMonitor == true {
+            EndpointLogger.log(title: "Can init with: \(request)", message: request.URL?.absoluteString)
+        }
 
         return shouldMonitor
     }
@@ -37,8 +39,17 @@
 
         EndpointLogger.log(title: "Started loading with body: ", message: request.HTTPBody)
 
-        self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
-        self.dataTask?.resume()
+        if let method = request.HTTPMethod {
+            switch method.lowercaseString {
+            case "get":
+                self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
+            case "put", "post":
+                self.dataTask = defaultSession.uploadTaskWithStreamedRequest(newRequest)
+            default:
+                self.dataTask = defaultSession.downloadTaskWithRequest(newRequest)
+            }
+            self.dataTask?.resume()
+        }
     }
 
     override internal func stopLoading() {
@@ -50,7 +61,6 @@
 
     internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         EndpointLogger.log(title: "Did send body data: ", message: request.HTTPBody)
-
     }
 
 
@@ -61,8 +71,8 @@
     }
 
     internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask,
-                           didReceiveResponse response: NSURLResponse,
-                                              completionHandler: (NSURLSessionResponseDisposition) -> Void) {
+                             didReceiveResponse response: NSURLResponse,
+                                                completionHandler: (NSURLSessionResponseDisposition) -> Void) {
         EndpointLogger.log(title: "Received response: ", message: response)
 
         self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
@@ -78,6 +88,19 @@
 
         self.client?.URLProtocol(self, didLoadData: data)
         self.receivedData?.appendData(data)
+    }
+
+    internal func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+
+        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
+            let credential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
+            completionHandler(.UseCredential,credential);
+        }
+        completionHandler(.PerformDefaultHandling, nil)
+    }
+
+    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+        completionHandler(.UseCredential, nil)
     }
 
     // MARK: NSURLSessionTaskDelegate
@@ -98,7 +121,7 @@
     private func doStuff () {
         let timeStamp = NSDate()
         let urlString = self.request.URL?.absoluteString
-//        let dataString = NSString(data: self.receivedData!, encoding: NSUTF8StringEncoding) as NSString?
+        //        let dataString = NSString(data: self.receivedData!, encoding: NSUTF8StringEncoding) as NSString?
         print("TimeStamp:\(timeStamp)\nURL: \(urlString)\n\n")
     }
 }

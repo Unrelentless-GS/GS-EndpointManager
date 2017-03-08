@@ -293,6 +293,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.gridstone.EndpointManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
