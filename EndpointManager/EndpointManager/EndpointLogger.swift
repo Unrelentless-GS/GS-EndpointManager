@@ -48,7 +48,7 @@
         print("****************************")
         print("ENDPOINT LOGGER")
         print(title)
-        print("****************************")
         print(message)
+        print("****************************")
     }
 }

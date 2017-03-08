@@ -35,6 +35,8 @@
         let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
         let defaultSession = NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
 
+        EndpointLogger.log(title: "Started loading with body: ", message: request.HTTPBody)
+
         self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
         self.dataTask?.resume()
     }
@@ -46,8 +48,17 @@
         self.urlResponse = nil
     }
 
+    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+        EndpointLogger.log(title: "Did send body data: ", message: request.HTTPBody)
+
+    }
+
 
     // MARK: NSURLSessionDataDelegate
+
+    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
+        EndpointLogger.log(title: "NewBodyStream", message: task)
+    }
 
     internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask,
                            didReceiveResponse response: NSURLResponse,
