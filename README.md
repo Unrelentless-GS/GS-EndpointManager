@@ -1,3 +1,6 @@
+#**⚠️ Deprecated. Use Herli's. ⚠️**
+-------
+
 # GS-EndpointManager
 Managing endpoints since 2017.
 
