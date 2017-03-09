@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instance2.com"))
 
         EndpointManager.populate([endpoint1, endpoint2, endpoint3])
-        EndpointLogger.monitor([endpoint1, endpoint2, endpoint3])
+        EndpointLogger.monitor([endpoint1, endpoint2, endpoint3], forSession: NSURLSession.sharedSession())
         EndpointLogger.logToConsole = true
 
         NSURLProtocol.registerClass(EndpointLogger.endpointProtocol)
