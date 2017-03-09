@@ -27,7 +27,11 @@
         return EndpointProtocol.self
     }
 
-    public static func monitor(endpoints: [Endpoint]) {
+    public static func monitor(endpoints: [Endpoint], forSession session: NSURLSession) {
+        var classes = session.configuration.protocolClasses
+        classes?.insert(EndpointProtocol.self, atIndex: 0)
+        session.configuration.protocolClasses = classes
+
         defaultManager.monitoredEndpoints = endpoints
     }
 

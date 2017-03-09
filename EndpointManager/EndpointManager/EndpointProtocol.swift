@@ -45,17 +45,8 @@
 
         EndpointLogger.log(title: "Started loading with body: ", message: request.HTTPBody)
 
-        if let method = request.HTTPMethod {
-            switch method.lowercaseString {
-            case "get":
-                self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
-            case "put", "post":
-                self.dataTask = defaultSession.uploadTaskWithStreamedRequest(newRequest)
-            default:
-                self.dataTask = defaultSession.downloadTaskWithRequest(newRequest)
-            }
-            self.dataTask?.resume()
-        }
+        self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
+        self.dataTask?.resume()
     }
 
     override internal func stopLoading() {
