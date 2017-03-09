@@ -39,18 +39,6 @@ class ViewController: UIViewController {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) { [weak self] in
             self?.webView.stopLoading()
         }
-
-        let request2 = NSMutableURLRequest(URL: url)
-        request2.HTTPMethod = "POST"
-
-        let request3 = NSMutableURLRequest(URL: url)
-        request2.HTTPMethod = "PUT"
-
-        let data = "asdasjdasdasd".dataUsingEncoding(NSUTF8StringEncoding)
-
-        NSURLSession.sharedSession().dataTaskWithRequest(request2).resume()
-        NSURLSession.sharedSession().uploadTaskWithStreamedRequest(request3).resume()
-        NSURLSession.sharedSession().uploadTaskWithRequest(request2, fromData: data!).resume()
     }
 
     @IBAction func touchMe(sender: UIButton) {
