@@ -8,11 +8,18 @@
 
 @objc internal class EndpointProtocol: NSURLProtocol, NSURLSessionDataDelegate, NSURLSessionTaskDelegate {
 
+    private static let magicFunUniqueKey = NSUUID().UUIDString
+
     private var dataTask: NSURLSessionTask?
     private var urlResponse: NSURLResponse?
     private var receivedData: NSMutableData?
+    private lazy var defaultSession: NSURLSession = {
+        let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
+        return NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
+    }()
 
     override internal class func canInitWithRequest(request: NSURLRequest) -> Bool {
+        guard NSURLProtocol.propertyForKey(magicFunUniqueKey, inRequest: request) == nil else { return false }
         guard let endpoints = EndpointLogger.monitoredEndpoints else { return false }
         guard let urlString = request.URL?.absoluteString else { return false }
 
@@ -20,7 +27,7 @@
         let shouldMonitor = monitoredURLs.contains{urlString.containsString($0)}
 
         if let method = request.HTTPMethod where shouldMonitor == true {
-            EndpointLogger.log(title: "Can init with: \(request)", message: request.URL?.absoluteString)
+            EndpointLogger.log(title: "Can init with: \(request.HTTPMethod)", message: request.URL?.absoluteString)
         }
 
         return shouldMonitor
@@ -34,8 +41,7 @@
 
         let newRequest = self.request.mutableCopy() as! NSMutableURLRequest
 
-        let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let defaultSession = NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
+        NSURLProtocol.setProperty("true?", forKey: EndpointProtocol.magicFunUniqueKey, inRequest: newRequest)
 
         EndpointLogger.log(title: "Started loading with body: ", message: request.HTTPBody)
 
@@ -59,21 +65,12 @@
         self.urlResponse = nil
     }
 
-    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-        EndpointLogger.log(title: "Did send body data: ", message: request.HTTPBody)
-    }
-
-
     // MARK: NSURLSessionDataDelegate
-
-    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
-        EndpointLogger.log(title: "NewBodyStream", message: task)
-    }
 
     internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask,
                              didReceiveResponse response: NSURLResponse,
                                                 completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        EndpointLogger.log(title: "Received response: ", message: response)
+        EndpointLogger.log(title: "Did receieve response: ", message: response)
 
         self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
 
@@ -107,7 +104,7 @@
 
     internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
 
-        EndpointLogger.log(title: "Completed with error: ", message: error?.localizedDescription)
+        EndpointLogger.log(title: "Did complete with error: ", message: error?.localizedDescription)
 
         if error != nil && error!.code != NSURLErrorCancelled {
             self.client?.URLProtocol(self, didFailWithError: error!)
