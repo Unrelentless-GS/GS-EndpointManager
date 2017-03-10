@@ -1,3 +1,6 @@
+#**⚠️ Deprecated. Use Herli's. ⚠️**
+-------
+
 # GS-EndpointManager
 Managing endpoints since 2017.
 
@@ -32,7 +35,7 @@ let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instanc
 
 Add them to the Endpoint Manager using:
 ```
- EndpointManager.endpoints = [endpoint1, endpoint2, endpoint3]
+EndpointManager.populateEndpoints([endpoint1, endpoint2, endpoint3])
 ```
 
 To present the endpoint manager, call:

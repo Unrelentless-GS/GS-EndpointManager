@@ -6,6 +6,10 @@
 //  Copyright © 2017 Pavel Boryseiko. All rights reserved.
 //
 
+import Foundation
+
+//private var bodyValues = [ String : NSData]()
+
 @objc internal class EndpointProtocol: NSURLProtocol, NSURLSessionDataDelegate, NSURLSessionTaskDelegate {
 
     private static let magicFunUniqueKey = NSUUID().UUIDString
@@ -13,11 +17,13 @@
     private var dataTask: NSURLSessionTask?
     private var urlResponse: NSURLResponse?
     private var receivedData: NSMutableData?
+    private var newRequest: NSMutableURLRequest?
+
     private lazy var defaultSession: NSURLSession = {
         let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
         return NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
     }()
-
+    
     override internal class func canInitWithRequest(request: NSURLRequest) -> Bool {
         guard NSURLProtocol.propertyForKey(magicFunUniqueKey, inRequest: request) == nil else { return false }
         guard let endpoints = EndpointLogger.monitoredEndpoints else { return false }
@@ -27,7 +33,7 @@
         let shouldMonitor = monitoredURLs.contains{urlString.containsString($0)}
 
         if let method = request.HTTPMethod where shouldMonitor == true {
-            EndpointLogger.log(title: "Can init with: \(request.HTTPMethod)", message: request.URL?.absoluteString)
+            EndpointLogger.log(title: "Can init with: \(method)", message: request.URL?.absoluteString)
         }
 
         return shouldMonitor
@@ -43,7 +49,37 @@
 
         NSURLProtocol.setProperty("true?", forKey: EndpointProtocol.magicFunUniqueKey, inRequest: newRequest)
 
-        EndpointLogger.log(title: "Started loading with body: ", message: request.HTTPBody)
+        self.newRequest = newRequest
+
+        if let stream = request.HTTPBodyStream {
+            stream.open()
+            if stream.hasBytesAvailable == true {
+                let data: NSMutableData = NSMutableData()
+                
+                var buffer = [UInt8](count: 8, repeatedValue: 0)
+                var result: Int = stream.read(&buffer, maxLength: buffer.count)
+                repeat {
+                    data.appendBytes(buffer, length: 8)
+                    result = stream.read(&buffer, maxLength: buffer.count)
+                } while result != 0
+
+                EndpointLogger.log(title: "Started loading with body stream: ", message: data)
+            }
+        }
+        
+        /* Workaround might not be required anymore, disabling workaround
+        let keyRequest = "\(newRequest.hashValue ?? 0)"
+        var bodyData: NSData? = nil
+        if let body = bodyValues["\(keyRequest)"] {
+            bodyData = body
+        } else {
+            bodyData = request.HTTPBody
+        }
+        */
+        
+        let bodyData = request.HTTPBody
+    
+        EndpointLogger.log(title: "Started loading with body: ", message: bodyData)
 
         self.dataTask = defaultSession.dataTaskWithRequest(newRequest)
         self.dataTask?.resume()
@@ -54,6 +90,13 @@
         self.dataTask = nil
         self.receivedData = nil
         self.urlResponse = nil
+        
+        /*
+        if let newRequest = newRequest {
+            let keyRequest = "\(newRequest.hashValue ?? 0)"
+            bodyValues.removeValueForKey(keyRequest)
+        }
+         */
     }
 
     // MARK: NSURLSessionDataDelegate
@@ -113,3 +156,47 @@
         print("TimeStamp:\(timeStamp)\nURL: \(urlString)\n\n")
     }
 }
+
+/*
+/* This is a workaround to http://openradar.appspot.com/15993891
+ * Swizzle the setHTTPBody: to store the http body in the internal dictionary to be retrieved later.
+ */
+import ObjectiveC.runtime
+public extension NSMutableURLRequest {
+    
+    private var endpointManagerShouldStoreBody: Bool {
+        get {
+            guard let value = objc_getAssociatedObject(self, "endpointManagerShouldStoreBody") as? Bool else {
+                return false
+            }
+            return value
+        }
+        set {
+            objc_setAssociatedObject(self, "endpointManagerShouldStoreBody", endpointManagerShouldStoreBody, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    @objc func endpointManagerHackBody(body: NSData?) {
+        defer {
+            endpointManagerHackBody(body)
+        }
+        guard endpointManagerShouldStoreBody == true else {
+            return
+        }
+        let keyRequest = "\(hashValue)"
+        guard let body = body where bodyValues[keyRequest] == nil else {
+            return
+        }
+        bodyValues[keyRequest] = body as NSData
+    }
+    
+    @objc class func endpointManagerHTTPBodySwizzle() {
+        
+        let originalSelector = Selector("setHTTPBody:")
+        
+        let setHttpBody = class_getInstanceMethod(self, originalSelector)
+        let httpBodyHackSetHttpBody = class_getInstanceMethod(self, #selector(self.endpointManagerHackBody(_:)))
+        method_exchangeImplementations(setHttpBody, httpBodyHackSetHttpBody)
+    }
+}
+ */

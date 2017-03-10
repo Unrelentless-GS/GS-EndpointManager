@@ -18,10 +18,10 @@
 
     internal var monitoredEndpoints = [Endpoint]?()
 
-
     internal static var defaultManager = EndpointLogger()
-    private override init() { }
-
+    private override init() {
+//        NSMutableURLRequest.endpointManagerHTTPBodySwizzle()
+    }
 
     public class var endpointProtocol: AnyClass {
         return EndpointProtocol.self
