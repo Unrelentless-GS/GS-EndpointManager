@@ -9,11 +9,11 @@ Managing endpoints since 2017.
 - [Installation](#-installation)
 - [Usage](#-usage)
 
-##📃 Description
+## 📃 Description
 Endpoint Manager is used to change any endpoints or constants during runtime.
 Helpful with network managers where you have multiple environments.
 
-##💾 Installation
+## 💾 Installation
 
 ### Carthage
 
@@ -25,7 +25,7 @@ github "Unrelentless-GS/GS-EndpointManager"
 
 Run `carthage update` to build the framework and drag the built `EndpointManager.framework` into your Xcode project.
 
-##🦄 Usage
+## 🦄 Usage
 Create endpoints using:
 ```
 let endpoint1 = Endpoint(name: "Instance 0", url: NSURL(string: "https://instance0"))
