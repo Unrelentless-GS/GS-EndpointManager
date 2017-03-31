@@ -69,7 +69,9 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
 
         var string = ""
 
-        string += "\((response?.response?.URL?.absoluteString)!)\n\n"
+        if let absoluteString = response?.response?.URL?.absoluteString {
+            string += "\(absoluteString)\n\n"
+        }
 
         if let response = response as? NSHTTPURLResponse {
             string += "\((response.allHeaderFields))\n\n"

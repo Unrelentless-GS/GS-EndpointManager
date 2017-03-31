@@ -155,18 +155,9 @@ import Foundation
             if error != nil && error!.code != NSURLErrorCancelled {
                 self.client?.URLProtocol(self, didFailWithError: error!)
             } else {
-                self.doStuff()
                 self.client?.URLProtocolDidFinishLoading(self)
             }
         }
-    }
-
-    // MARK: Private
-    private func doStuff () {
-        let timeStamp = NSDate()
-        let urlString = self.request.URL?.absoluteString
-        //        let dataString = NSString(data: self.receivedData!, encoding: NSUTF8StringEncoding) as NSString?
-        print("TimeStamp:\(timeStamp)\nURL: \(urlString)\n\n")
     }
 }
 
