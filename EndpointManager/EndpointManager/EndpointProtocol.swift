@@ -47,6 +47,8 @@ import Foundation
 
     override internal func startLoading() {
 
+        let semaphore = dispatch_semaphore_create(0)
+
         EndpointLogger.presentWindow(forRequest: self.request) { [weak self] updatedRequest in
 
             let newRequest = updatedRequest ?? self?.request.mutableCopy() as! NSMutableURLRequest
@@ -87,7 +89,11 @@ import Foundation
 
             self?.dataTask = self?.defaultSession.dataTaskWithRequest(newRequest)
             self?.dataTask?.resume()
+
+            dispatch_semaphore_signal(semaphore)
         }
+
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
     }
 
     override internal func stopLoading() {
