@@ -11,7 +11,7 @@ import UIKit
 internal class EndpointLoggerInterceptedViewController: UIViewController {
 
     internal weak var request: NSURLRequest?
-    internal weak var response: NSURLResponse?
+    internal var response: EndpointResponse?
 
     internal var requestCompletion: InterceptRequestCompletion?
     internal var responseCompletion: InterceptResponseCompletion?
@@ -21,7 +21,7 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
     override internal func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Endpoint Logger"
+        title = request != nil ? "REQUEST" : response != nil ? "RESPONSE" : "LOGGER"
 
         textView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -69,22 +69,27 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
 
         var string = ""
 
-        string += "\((response?.URL?.absoluteString)!)\n\n"
+        string += "\((response?.response?.URL?.absoluteString)!)\n\n"
+
         if let response = response as? NSHTTPURLResponse {
             string += "\((response.allHeaderFields))\n\n"
         }
 
-        if let message = response {
+        if let message = response?.data {
             if let data = message as? NSData {
                 do {
                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    string += "\(json as! [String: AnyObject])"
+                    string += "\(json as! [String: AnyObject])\n\n"
                 } catch {
                     if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                         string += dataString
                     }
                 }
             }
+        }
+
+        if let error = response?.error {
+            string += "\(error.localizedDescription)\n\n"
         }
 
         textView.text = string

@@ -13,6 +13,7 @@ internal typealias InterceptResponseCompletion = () -> ()
 
     public static var logToConsole: Bool = false
     public static var interceptAndDisplayRequest: Bool = false
+    public static var interceptAndDisplayResponse: Bool = false
     public static var monitoredEndpoints: [Endpoint]? {
         get {
             return defaultManager.monitoredEndpoints
@@ -78,8 +79,8 @@ internal typealias InterceptResponseCompletion = () -> ()
     }
 
 
-    internal static func presentWindow(forResponse response: NSURLResponse, completion: InterceptResponseCompletion) {
-        if EndpointLogger.interceptAndDisplayRequest == true {
+    internal static func presentWindow(forResponse response: EndpointResponse, completion: InterceptResponseCompletion) {
+        if EndpointLogger.interceptAndDisplayResponse == true {
             dispatch_async(dispatch_get_main_queue()) {
                 let viewController = EndpointLoggerInterceptedViewController()
                 viewController.response = response

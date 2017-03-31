@@ -19,6 +19,8 @@ import Foundation
     private var receivedData: NSMutableData?
     private var newRequest: NSMutableURLRequest?
 
+    private var fullResponse = EndpointResponse()
+
     private lazy var defaultSession: NSURLSession = {
         let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
         return NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
@@ -108,23 +110,26 @@ import Foundation
                              didReceiveResponse response: NSURLResponse,
                                                 completionHandler: (NSURLSessionResponseDisposition) -> Void) {
 
-        EndpointLogger.presentWindow(forResponse: response) {
-            EndpointLogger.log(title: "Did receieve response: ", message: response)
+        self.fullResponse.response = response
 
-            self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
+        EndpointLogger.log(title: "Did receieve response: ", message: response)
 
-            self.urlResponse = response
-            self.receivedData = NSMutableData()
+        self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
 
-            completionHandler(.Allow)
-        }
+        self.urlResponse = response
+        self.receivedData = NSMutableData()
+
+        completionHandler(.Allow)
     }
 
     internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        EndpointLogger.log(title: "Did receieve data: ", message: data)
+        self.fullResponse.data = data
 
-        self.client?.URLProtocol(self, didLoadData: data)
-        self.receivedData?.appendData(data)
+        EndpointLogger.log(title: "Did receieve data: ", message: data)
+        EndpointLogger.presentWindow(forResponse: self.fullResponse) {
+            self.client?.URLProtocol(self, didLoadData: data)
+            self.receivedData?.appendData(data)
+        }
     }
 
     internal func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
@@ -143,14 +148,16 @@ import Foundation
     // MARK: NSURLSessionTaskDelegate
 
     internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+        self.fullResponse.error = error
 
         EndpointLogger.log(title: "Did complete with error: ", message: error?.localizedDescription)
-
-        if error != nil && error!.code != NSURLErrorCancelled {
-            self.client?.URLProtocol(self, didFailWithError: error!)
-        } else {
-            doStuff()
-            self.client?.URLProtocolDidFinishLoading(self)
+        EndpointLogger.presentWindow(forResponse: self.fullResponse) {
+            if error != nil && error!.code != NSURLErrorCancelled {
+                self.client?.URLProtocol(self, didFailWithError: error!)
+            } else {
+                self.doStuff()
+                self.client?.URLProtocolDidFinishLoading(self)
+            }
         }
     }
 
@@ -195,7 +202,7 @@ import Foundation
  }
  bodyValues[keyRequest] = body as NSData
  }
-
+ 
  @objc class func endpointManagerHTTPBodySwizzle() {
  
  let originalSelector = Selector("setHTTPBody:")

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		120213541E6E6C5600BF004C /* EndpointLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120213531E6E6C5600BF004C /* EndpointLogger.swift */; };
+		122871911E8E058F009F76DF /* EndpointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122871901E8E058F009F76DF /* EndpointResponse.swift */; };
 		124F1E9C1E6E5EF900C76156 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */; };
 		126C4B361E67DC3400D634AF /* EndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 126C4B351E67DC3400D634AF /* EndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		120213531E6E6C5600BF004C /* EndpointLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLogger.swift; sourceTree = "<group>"; };
+		122871901E8E058F009F76DF /* EndpointResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointResponse.swift; sourceTree = "<group>"; };
 		124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		126C4B321E67DC3400D634AF /* EndpointManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EndpointManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		126C4B351E67DC3400D634AF /* EndpointManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndpointManager.h; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */,
 				126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */,
 				126C4B371E67DC3400D634AF /* Info.plist */,
+				122871901E8E058F009F76DF /* EndpointResponse.swift */,
 			);
 			path = EndpointManager;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */,
 				1272ECF21E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift in Sources */,
 				126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */,
+				122871911E8E058F009F76DF /* EndpointResponse.swift in Sources */,
 				126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */,
 				124F1E9C1E6E5EF900C76156 /* EndpointProtocol.swift in Sources */,
 			);

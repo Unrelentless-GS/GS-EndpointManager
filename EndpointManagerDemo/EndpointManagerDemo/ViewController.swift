@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         let request = NSURLRequest(URL: url)
         webView.loadRequest(request)
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) { [weak self] in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(10 * NSEC_PER_SEC)), dispatch_get_main_queue()) { [weak self] in
             self?.webView.stopLoading()
         }
     }
