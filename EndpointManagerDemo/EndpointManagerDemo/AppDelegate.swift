@@ -25,12 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         EndpointManager.populate([endpoint1, endpoint2, endpoint3])
         EndpointLogger.monitor([endpoint1, endpoint2, endpoint3], forSession: NSURLSession.sharedSession())
-        EndpointLogger.logToConsole = true
+        EndpointLogger.logToConsole = false
         EndpointLogger.interceptAndDisplayRequest = true
         EndpointLogger.interceptAndDisplayResponse = true
         EndpointLogger.keyWindow = window
-
-        NSURLProtocol.registerClass(EndpointLogger.endpointProtocol)
 
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 

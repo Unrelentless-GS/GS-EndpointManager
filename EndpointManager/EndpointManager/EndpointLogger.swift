@@ -9,21 +9,54 @@
 internal typealias InterceptRequestCompletion = (NSMutableURLRequest?) -> ()
 internal typealias InterceptResponseCompletion = () -> ()
 
+
+/// Your one point of contact with the logger
 @objc public class EndpointLogger: NSObject {
 
+    /// Whether you want the logger to print to console
     public static var logToConsole: Bool = false
+
+    /// Whether you want to intercept and display all requests
     public static var interceptAndDisplayRequest: Bool = false
+
+    /// Whether you want to intercept and display all responses
     public static var interceptAndDisplayResponse: Bool = false
+
+    /**
+     The monitored endpoints
+
+     Set these to the endpoint you want monitored.
+     Technically, only the url is used.
+
+     The url to be monitored will be matched exactly:
+     ie. if you want to monitor for example:
+     ```
+     https://someURL.io/first
+     https://someURL.io/second
+     ```
+     passing in:
+     **`https://someURL.io`** will match everything with the base URL of **`https://someURL.io`**
+     including both:
+     ```
+     https://someURL.io/first
+     https://someURL.io/second
+     ```
+     but **`https://someURL.io/first`** will only match the first as well as any other path under the first:
+     ```
+     https://someURL.io/first
+     https://someURL.io/first/third
+     ```
+
+     You can use this only match a specific path
+     */
     public static var monitoredEndpoints: [Endpoint]? {
         get {
             return defaultManager.monitoredEndpoints
         }
     }
 
+    /// A reference to the keyWindow. Pass in your working keyWindow otherwise, intercepting and presenting **will not work**
     public static weak var keyWindow: UIWindow?
-    public static var endpointProtocol: AnyClass {
-        return EndpointProtocol.self
-    }
 
     internal static var defaultManager = EndpointLogger()
     internal var monitoredEndpoints = [Endpoint]?()
@@ -33,9 +66,44 @@ internal typealias InterceptResponseCompletion = () -> ()
         return UIWindow(frame: frame!)
     }()
 
+    private override init() {
+        NSURLProtocol.registerClass(EndpointProtocol.self)
+        /* NSMutableURLRequest.endpointManagerHTTPBodySwizzle() */
+    }
 
-    private override init() { /* NSMutableURLRequest.endpointManagerHTTPBodySwizzle() */ }
+    /**
+     Monitor endpoints on a specific url session
 
+     - parameter endpoints: an array of endpoints to monitor. This overrides the mn
+     Set these to the endpoint you want monitored.
+     Technically, only the url is used.
+
+     The url to be monitored will be matched exactly:
+     ie. if you want to monitor for example:
+     ```
+     https://someURL.io/first
+     https://someURL.io/second
+     ```
+     passing in:
+     **`https://someURL.io`** will match everything with the base URL of **`https://someURL.io`**
+     including both:
+     ```
+     https://someURL.io/first
+     https://someURL.io/second
+     ```
+     but **`https://someURL.io/first`** will only match the first as well as any other path under the first:
+     ```
+     https://someURL.io/first
+     https://someURL.io/first/third
+     ```
+     and will not match
+     ```
+     https://someURL.io/second
+     ```
+
+     You can use this only match a specific path
+     - parameter session:   the url session to monitor these endpoints on. Pass **`NSURLSession.sharedSession()`** if you're using the default session.
+     */
     public static func monitor(endpoints: [Endpoint], forSession session: NSURLSession) {
         var classes = session.configuration.protocolClasses
         classes?.insert(EndpointProtocol.self, atIndex: 0)
@@ -75,6 +143,8 @@ internal typealias InterceptResponseCompletion = () -> ()
                 defaultManager.loggerWindow.rootViewController = navController
                 defaultManager.loggerWindow.makeKeyAndVisible()
             }
+        } else {
+            completion(nil)
         }
     }
 
@@ -89,6 +159,8 @@ internal typealias InterceptResponseCompletion = () -> ()
                 defaultManager.loggerWindow.rootViewController = navController
                 defaultManager.loggerWindow.makeKeyAndVisible()
             }
+        } else {
+            completion()
         }
     }
 

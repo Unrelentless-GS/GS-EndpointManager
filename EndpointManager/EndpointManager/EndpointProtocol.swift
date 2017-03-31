@@ -16,7 +16,6 @@ import Foundation
 
     private var dataTask: NSURLSessionTask?
     private var urlResponse: NSURLResponse?
-    private var receivedData: NSMutableData?
     private var newRequest: NSMutableURLRequest?
 
     private var fullResponse = EndpointResponse()
@@ -99,7 +98,6 @@ import Foundation
     override internal func stopLoading() {
         self.dataTask?.cancel()
         self.dataTask = nil
-        self.receivedData = nil
         self.urlResponse = nil
 
         /*
@@ -123,7 +121,6 @@ import Foundation
         self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
 
         self.urlResponse = response
-        self.receivedData = NSMutableData()
 
         completionHandler(.Allow)
     }
@@ -134,7 +131,6 @@ import Foundation
         EndpointLogger.log(title: "Did receieve data: ", message: data)
         EndpointLogger.presentWindow(forResponse: self.fullResponse) {
             self.client?.URLProtocol(self, didLoadData: data)
-            self.receivedData?.appendData(data)
         }
     }
 

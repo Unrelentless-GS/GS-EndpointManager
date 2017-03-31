@@ -73,19 +73,17 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
             string += "\(absoluteString)\n\n"
         }
 
-        if let response = response as? NSHTTPURLResponse {
+        if let response = response?.response as? NSHTTPURLResponse {
             string += "\((response.allHeaderFields))\n\n"
         }
 
-        if let message = response?.data {
-            if let data = message as? NSData {
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    string += "\(json as! [String: AnyObject])\n\n"
-                } catch {
-                    if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
-                        string += dataString
-                    }
+        if let data = response?.data {
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                string += "\(json as! [String: AnyObject])\n\n"
+            } catch {
+                if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
+                    string += dataString
                 }
             }
         }
@@ -107,5 +105,5 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
         let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(doneHandler))
         self.navigationItem.leftBarButtonItem = doneButton
     }
-
+    
 }
