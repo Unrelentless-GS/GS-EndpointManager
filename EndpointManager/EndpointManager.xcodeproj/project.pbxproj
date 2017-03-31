@@ -16,6 +16,7 @@
 		126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B511E69016B00D634AF /* EndpointNewViewController.swift */; };
 		126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */; };
 		126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */; };
+		1272ECF21E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272ECF11E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		126C4B511E69016B00D634AF /* EndpointNewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointNewViewController.swift; sourceTree = "<group>"; };
 		126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTableViewCell.swift; sourceTree = "<group>"; };
 		126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointDataManager.swift; sourceTree = "<group>"; };
+		1272ECF11E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLoggerInterceptedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,15 +64,16 @@
 		126C4B341E67DC3400D634AF /* EndpointManager */ = {
 			isa = PBXGroup;
 			children = (
-				120213531E6E6C5600BF004C /* EndpointLogger.swift */,
-				124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */,
 				126C4B4F1E69008100D634AF /* Endpoint.swift */,
-				126C4B491E67DDB000D634AF /* EndpointManager.swift */,
 				126C4B6C1E6D26E100D634AF /* EndpointDataManager.swift */,
+				120213531E6E6C5600BF004C /* EndpointLogger.swift */,
+				1272ECF11E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift */,
+				126C4B351E67DC3400D634AF /* EndpointManager.h */,
+				126C4B491E67DDB000D634AF /* EndpointManager.swift */,
 				126C4B3D1E67DC9000D634AF /* EndpointManagerViewController.swift */,
 				126C4B511E69016B00D634AF /* EndpointNewViewController.swift */,
+				124F1E9B1E6E5EF900C76156 /* EndpointProtocol.swift */,
 				126C4B531E6901CC00D634AF /* EndpointTableViewCell.swift */,
-				126C4B351E67DC3400D634AF /* EndpointManager.h */,
 				126C4B371E67DC3400D634AF /* Info.plist */,
 			);
 			path = EndpointManager;
@@ -159,6 +162,7 @@
 				126C4B501E69008100D634AF /* Endpoint.swift in Sources */,
 				126C4B3F1E67DC9000D634AF /* EndpointManagerViewController.swift in Sources */,
 				126C4B6D1E6D26E100D634AF /* EndpointDataManager.swift in Sources */,
+				1272ECF21E8DF44B00AD9855 /* EndpointLoggerInterceptedViewController.swift in Sources */,
 				126C4B541E6901CC00D634AF /* EndpointTableViewCell.swift in Sources */,
 				126C4B521E69016B00D634AF /* EndpointNewViewController.swift in Sources */,
 				124F1E9C1E6E5EF900C76156 /* EndpointProtocol.swift in Sources */,

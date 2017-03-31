@@ -26,11 +26,6 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: EndpointManager.EndpointChangedNotification, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func testNetwork(sender: AnyObject) {
         guard let url = EndpointManager.selectedEndpoint?.url else { return }
         let request = NSURLRequest(URL: url)

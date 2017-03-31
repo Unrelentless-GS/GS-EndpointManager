@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         EndpointManager.populate([endpoint1, endpoint2, endpoint3])
         EndpointLogger.monitor([endpoint1, endpoint2, endpoint3], forSession: NSURLSession.sharedSession())
         EndpointLogger.logToConsole = true
+        EndpointLogger.interceptAndDisplayRequest = true
+        EndpointLogger.keyWindow = window
 
         NSURLProtocol.registerClass(EndpointLogger.endpointProtocol)
 

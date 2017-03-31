@@ -57,7 +57,7 @@
         return self.endpoints?.indexOf{$0.name == self.selectedEndpoint?.name}
     }
 
-    private weak var privateWindow: UIWindow?
+    private weak var keyWindow: UIWindow?
 
     //This prevents others from using the default '()' initializer for this class.
     private override init() {
@@ -84,7 +84,7 @@
      - parameter window: a reference to your current working window. if in doubt, pass in **`UIApplication.sharedApplication().keyWindow`**
      */
     public static func presentEndpointManagerFrom(window: UIWindow) {
-        defaultManager.privateWindow = window
+        defaultManager.keyWindow = window
 
         defaultManager.window.frame = window.bounds
         let vc = EndpointManagerViewController()
@@ -99,6 +99,6 @@
     }
 
     internal func dimiss() {
-        privateWindow?.makeKeyAndVisible()
+        keyWindow?.makeKeyAndVisible()
     }
 }
