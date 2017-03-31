@@ -22,34 +22,7 @@ internal typealias InterceptResponseCompletion = () -> ()
     /// Whether you want to intercept and display all responses
     public static var interceptAndDisplayResponse: Bool = false
 
-    /**
-     The monitored endpoints
-
-     Set these to the endpoint you want monitored.
-     Technically, only the url is used.
-
-     The url to be monitored will be matched exactly:
-     ie. if you want to monitor for example:
-     ```
-     https://someURL.io/first
-     https://someURL.io/second
-     ```
-     passing in:
-     **`https://someURL.io`** will match everything with the base URL of **`https://someURL.io`**
-     including both:
-     ```
-     https://someURL.io/first
-     https://someURL.io/second
-     ```
-     but **`https://someURL.io/first`** will only match the first as well as any other path under the first:
-     ```
-     https://someURL.io/first
-     https://someURL.io/first/third
-     ```
-
-     You can use this only match a specific path
-     */
-    public static var monitoredEndpoints: [Endpoint]? {
+    internal static var monitoredEndpoints: [Endpoint]? {
         get {
             return defaultManager.monitoredEndpoints
         }
