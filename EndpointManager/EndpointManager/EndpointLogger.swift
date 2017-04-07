@@ -22,17 +22,17 @@ internal typealias InterceptResponseCompletion = () -> ()
     /// Whether you want to intercept and display all responses
     public static var interceptAndDisplayResponse: Bool = false
 
-    internal static var monitoredEndpoints: [Endpoint]? {
-        get {
-            return defaultManager.monitoredEndpoints
-        }
-    }
-
     /// A reference to the keyWindow. Pass in your working keyWindow otherwise, intercepting and presenting **will not work**
     public static weak var keyWindow: UIWindow?
 
     internal static var defaultManager = EndpointLogger()
     internal var monitoredEndpoints = [Endpoint]?()
+
+    internal static var monitoredEndpoints: [Endpoint]? {
+        get {
+            return defaultManager.monitoredEndpoints
+        }
+    }
 
     private lazy var loggerWindow: UIWindow = {
         let frame = UIApplication.sharedApplication().keyWindow?.frame
@@ -41,13 +41,14 @@ internal typealias InterceptResponseCompletion = () -> ()
 
     private override init() {
         NSURLProtocol.registerClass(EndpointProtocol.self)
+        NSURLSession.endpointManagerNSURLSessionSwizzle()
         /* NSMutableURLRequest.endpointManagerHTTPBodySwizzle() */
     }
 
     /**
      Monitor endpoints on a specific url session
 
-     - parameter endpoints: an array of endpoints to monitor. This overrides the mn
+     - parameter endpoints: an array of endpoints to monitor.
      Set these to the endpoint you want monitored.
      Technically, only the url is used.
 
@@ -77,11 +78,7 @@ internal typealias InterceptResponseCompletion = () -> ()
      You can use this only match a specific path
      - parameter session:   the url session to monitor these endpoints on. Pass **`NSURLSession.sharedSession()`** if you're using the default session.
      */
-    public static func monitor(endpoints: [Endpoint], forSession session: NSURLSession) {
-        var classes = session.configuration.protocolClasses
-        classes?.insert(EndpointProtocol.self, atIndex: 0)
-        session.configuration.protocolClasses = classes
-
+    public static func monitor(endpoints: [Endpoint]) {
         defaultManager.monitoredEndpoints = endpoints
     }
 

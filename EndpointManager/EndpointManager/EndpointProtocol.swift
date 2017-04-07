@@ -7,6 +7,29 @@
 //
 
 import Foundation
+import ObjectiveC.runtime
+
+internal extension NSURLSession {
+
+    @objc class func swizzledInit(configuration: NSURLSessionConfiguration) -> NSURLSession {
+        let swizzledConfig = configuration
+        var classes = swizzledConfig.protocolClasses
+        classes?.insert(EndpointProtocol.self, atIndex: 0)
+        swizzledConfig.protocolClasses = classes
+
+        return NSURLSession.swizzledInit(swizzledConfig)
+    }
+
+    @objc class func endpointManagerNSURLSessionSwizzle() {
+        let selector = #selector(NSURLSession.init(configuration:))
+
+        let originalInit = class_getClassMethod(self, selector)
+        let swizzledInit = class_getClassMethod(self, #selector(swizzledInit(_:)))
+
+        method_exchangeImplementations(originalInit, swizzledInit)
+    }
+}
+
 
 //private var bodyValues = [ String : NSData]()
 

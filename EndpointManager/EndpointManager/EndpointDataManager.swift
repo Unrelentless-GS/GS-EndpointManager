@@ -22,7 +22,6 @@ internal class EndpointDataManager {
             let encodedSelectedEndpoint = NSKeyedArchiver.archivedDataWithRootObject(selectedEndpoint)
             NSUserDefaults.standardUserDefaults().setObject(encodedSelectedEndpoint, forKey: EndpointManagerSaveSelectedKey)
         }
-
     }
 
     static func loadEndpoints() -> [Endpoint]? {

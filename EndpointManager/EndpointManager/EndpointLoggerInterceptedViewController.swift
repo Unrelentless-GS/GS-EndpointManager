@@ -80,7 +80,11 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
         if let data = response?.data {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                string += "\(json as! [String: AnyObject])\n\n"
+                if json is [AnyObject] {
+                    string += "\(json as! [AnyObject])\n\n"
+                } else {
+                    string += "\(json as! [String: AnyObject])\n\n"
+                }
             } catch {
                 if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                     string += dataString
