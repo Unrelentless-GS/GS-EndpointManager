@@ -44,50 +44,36 @@ internal class EndpointNewViewController: UIViewController {
         button.tintColor = .whiteColor()
         button.addTarget(self, action: #selector(doneHandler), forControlEvents: .TouchUpInside)
 
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        urlLabel.translatesAutoresizingMaskIntoConstraints = false
-        urlTextField.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(nameLabel)
-        view.addSubview(nameTextField)
-        view.addSubview(urlLabel)
-        view.addSubview(urlTextField)
         view.addSubview(button)
 
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+        let viewArray: [UIView] = [nameLabel, nameTextField, urlLabel, urlTextField]
+        var constraints = [NSLayoutConstraint]()
+
+        for view in viewArray {
+            self.view.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+
+            constraints += NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|-16-[name]-16-|",
+                options: [],
+                metrics: nil,
+                views: ["name": view])
+        }
+
+        constraints += NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|-20-[name(30)]-2-[nameText(==name)]-10-[url(==name)]-2-[urlText(==name)]->=20@200-[button(60)]|",
             options: [],
             metrics: nil,
-            views: ["name": nameLabel, "nameText": nameTextField, "url": urlLabel, "urlText": urlTextField, "button": button]))
+            views: ["name": nameLabel, "nameText": nameTextField, "url": urlLabel, "urlText": urlTextField, "button": button])
 
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-16-[name]-16-|",
-            options: [],
-            metrics: nil,
-            views: ["name": nameLabel]))
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-16-[name]-16-|",
-            options: [],
-            metrics: nil,
-            views: ["name": nameTextField]))
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-16-[name]-16-|",
-            options: [],
-            metrics: nil,
-            views: ["name": urlLabel]))
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-16-[name]-16-|",
-            options: [],
-            metrics: nil,
-            views: ["name": urlTextField]))
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+        constraints += NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|[name]|",
             options: [],
             metrics: nil,
-            views: ["name": button]))
+            views: ["name": button])
 
+        NSLayoutConstraint.activateConstraints(constraints)
     }
 
     @objc private func doneHandler() {

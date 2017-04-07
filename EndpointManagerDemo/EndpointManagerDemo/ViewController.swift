@@ -26,19 +26,19 @@ class ViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: EndpointManager.EndpointChangedNotification, object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func testNetwork(sender: AnyObject) {
-        guard let url = EndpointManager.selectedEndpoint?.url else { return }
-        let request = NSURLRequest(URL: url)
-        webView.loadRequest(request)
+        EndpointLogger.monitor([Endpoint(name: nil, url: NSURL(string: "jsonplaceholder.typicode.com"))])
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * NSEC_PER_SEC)), dispatch_get_main_queue()) { [weak self] in
-            self?.webView.stopLoading()
-        }
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        
+        let request1 = NSMutableURLRequest(URL: NSURL(string: "https://jsonplaceholder.typicode.com/posts")!)
+        let request2 = NSMutableURLRequest(URL: NSURL(string: "https://jsonplaceholder.typicode.com/posts")!)
+
+        request2.HTTPMethod = "POST"
+        request2.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(["title": "Hello", "body": "Something", "userId": "Bleh"], options: .PrettyPrinted)
+
+        session.dataTaskWithRequest(request1).resume()
+        session.dataTaskWithRequest(request2).resume()
     }
 
     @IBAction func touchMe(sender: UIButton) {
