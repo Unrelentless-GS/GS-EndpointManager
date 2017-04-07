@@ -47,7 +47,6 @@ internal typealias InterceptResponseCompletion = () -> ()
 
     /**
      Monitor endpoints on a specific url session
-
      - parameter endpoints: an array of endpoints to monitor.
      Set these to the endpoint you want monitored.
      Technically, only the url is used.
@@ -74,9 +73,6 @@ internal typealias InterceptResponseCompletion = () -> ()
      ```
      https://someURL.io/second
      ```
-
-     You can use this only match a specific path
-     - parameter session:   the url session to monitor these endpoints on. Pass **`NSURLSession.sharedSession()`** if you're using the default session.
      */
     public static func monitor(endpoints: [Endpoint]) {
         defaultManager.monitoredEndpoints = endpoints
