@@ -173,6 +173,8 @@ internal extension NSURLSession {
     // MARK: NSURLSessionTaskDelegate
 
     internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+        guard error != nil else { return }
+
         self.fullResponse.error = error
 
         EndpointLogger.log(title: "Did complete with error: ", message: error?.localizedDescription)

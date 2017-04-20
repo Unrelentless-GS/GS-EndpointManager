@@ -12,8 +12,8 @@
 		126C4B1C1E67DC0500D634AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 126C4B1A1E67DC0500D634AF /* Main.storyboard */; };
 		126C4B1E1E67DC0500D634AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126C4B1D1E67DC0500D634AF /* Assets.xcassets */; };
 		126C4B211E67DC0500D634AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 126C4B1F1E67DC0500D634AF /* LaunchScreen.storyboard */; };
-		126C4B661E6CE92400D634AF /* EndpointManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 126C4B651E6CE92400D634AF /* EndpointManager.framework */; };
-		126C4B671E6CE92400D634AF /* EndpointManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 126C4B651E6CE92400D634AF /* EndpointManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		12910A581EA84074002974D5 /* EndpointManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12910A571EA84074002974D5 /* EndpointManager.framework */; };
+		12910A591EA84074002974D5 /* EndpointManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 12910A571EA84074002974D5 /* EndpointManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				126C4B671E6CE92400D634AF /* EndpointManager.framework in Embed Frameworks */,
+				12910A591EA84074002974D5 /* EndpointManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +38,7 @@
 		126C4B1D1E67DC0500D634AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126C4B201E67DC0500D634AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		126C4B221E67DC0500D634AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		126C4B651E6CE92400D634AF /* EndpointManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = EndpointManager.framework; path = "/Users/pavelboryseiko/Library/Developer/Xcode/DerivedData/Endpoints-esgpbfhgefmymbcatefktnftukfa/Build/Products/Debug-iphonesimulator/EndpointManager.framework"; sourceTree = "<absolute>"; };
+		12910A571EA84074002974D5 /* EndpointManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = EndpointManager.framework; path = "/Users/pavelboryseiko/Library/Developer/Xcode/DerivedData/Endpoints-cfmnmilxwfhehkfohxjhojjwzxkt/Build/Products/Debug-iphonesimulator/EndpointManager.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				126C4B661E6CE92400D634AF /* EndpointManager.framework in Frameworks */,
+				12910A581EA84074002974D5 /* EndpointManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +56,7 @@
 		126C4B0A1E67DC0500D634AF = {
 			isa = PBXGroup;
 			children = (
-				126C4B651E6CE92400D634AF /* EndpointManager.framework */,
+				12910A571EA84074002974D5 /* EndpointManager.framework */,
 				126C4B151E67DC0500D634AF /* EndpointManagerDemo */,
 				126C4B141E67DC0500D634AF /* Products */,
 			);
@@ -306,6 +306,7 @@
 				126C4B271E67DC0500D634AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

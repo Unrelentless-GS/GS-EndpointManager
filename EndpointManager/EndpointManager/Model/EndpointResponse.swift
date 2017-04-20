@@ -11,3 +11,13 @@ internal struct EndpointResponse {
     var data: NSData?
     var error: NSError?
 }
+
+internal struct QueuedResponse {
+    var reponse: EndpointResponse
+    var completion: InterceptResponseCompletion
+}
+
+internal struct QueuedRequest {
+    var request: NSURLRequest
+    var completion: InterceptRequestCompletion
+}
