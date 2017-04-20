@@ -8,8 +8,15 @@
 
 import UIKit
 
+internal enum NetworkMethodType {
+    case Request
+    case Response
+}
+
 internal class EndpointLoggerInterceptedViewController: UIViewController {
 
+    internal var type: NetworkMethodType = .Request
+    
     internal weak var request: NSURLRequest?
     internal var response: EndpointResponse?
 
@@ -43,9 +50,9 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
 
         genNavButtons()
 
-        if request != nil {
+        if type == .Request {
             genRequest()
-        } else if response != nil {
+        } else if type == .Response {
             genResponse()
         }
     }
@@ -100,7 +107,7 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
     }
 
     @objc private func doneHandler() {
-        EndpointLogger.dismiss()
+        EndpointLogger.dismiss(fromType: type)
         responseCompletion?()
         requestCompletion?(nil)
     }

@@ -39,6 +39,9 @@ internal typealias InterceptResponseCompletion = () -> ()
         return UIWindow(frame: frame!)
     }()
 
+    private var queuedRequests = [QueuedRequest]() // { didSet { print("Request: \(queuedRequests.count)") } }
+    private var queuedResponses = [QueuedResponse]() // { didSet { print("Response: \(queuedResponses.count)") } }
+
     private override init() {
         NSURLProtocol.registerClass(EndpointProtocol.self)
         NSURLSession.endpointManagerNSURLSessionSwizzle()
@@ -84,7 +87,11 @@ internal typealias InterceptResponseCompletion = () -> ()
         if let data = message as? NSData {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                message = json as! [String: AnyObject]
+                if json is [AnyObject] {
+                    message = "\(json as! [AnyObject])\n\n"
+                } else {
+                    message = "\(json as! [String: AnyObject])\n\n"
+                }
             } catch {
                 if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                     message = dataString
@@ -101,36 +108,56 @@ internal typealias InterceptResponseCompletion = () -> ()
 
     internal static func presentWindow(forRequest request: NSURLRequest, completion: InterceptRequestCompletion) {
         if EndpointLogger.interceptAndDisplayRequest == true {
-            dispatch_async(dispatch_get_main_queue()) {
-                let viewController = EndpointLoggerInterceptedViewController()
-                viewController.request = request
-                viewController.requestCompletion = completion
-                let navController = UINavigationController(rootViewController: viewController)
-                defaultManager.loggerWindow.rootViewController = navController
-                defaultManager.loggerWindow.makeKeyAndVisible()
-            }
+            let queuedRequest = QueuedRequest(request: request, completion: completion)
+            defaultManager.queuedRequests.append(queuedRequest)
+            defaultManager.tryPresentingSomething()
         } else {
             completion(nil)
         }
     }
 
-
     internal static func presentWindow(forResponse response: EndpointResponse, completion: InterceptResponseCompletion) {
         if EndpointLogger.interceptAndDisplayResponse == true {
-            dispatch_async(dispatch_get_main_queue()) {
-                let viewController = EndpointLoggerInterceptedViewController()
-                viewController.response = response
-                viewController.responseCompletion = completion
-                let navController = UINavigationController(rootViewController: viewController)
-                defaultManager.loggerWindow.rootViewController = navController
-                defaultManager.loggerWindow.makeKeyAndVisible()
-            }
+            let queuedResponse = QueuedResponse(reponse: response, completion: completion)
+            defaultManager.queuedResponses.append(queuedResponse)
+            defaultManager.tryPresentingSomething()
         } else {
             completion()
         }
     }
 
-    internal static func dismiss() {
-        EndpointLogger.keyWindow?.makeKeyAndVisible()
+    private func tryPresentingSomething() -> Bool {
+        if queuedResponses.count == 0 && queuedRequests.count == 0 { return false }
+
+        let viewController = EndpointLoggerInterceptedViewController()
+
+        if queuedRequests.count > 0 {
+            viewController.request = queuedRequests.first!.request
+            viewController.requestCompletion = queuedRequests.first!.completion
+            viewController.type = .Request
+        } else if queuedResponses.count > 0 {
+            viewController.response = queuedResponses.first!.reponse
+            viewController.responseCompletion = queuedResponses.first!.completion
+            viewController.type = .Response
+        }
+        dispatch_async(dispatch_get_main_queue()) {
+            let navController = UINavigationController(rootViewController: viewController)
+            self.loggerWindow.rootViewController = navController
+            self.loggerWindow.makeKeyAndVisible()
+        }
+
+        return true
+    }
+
+    internal static func dismiss(fromType type: NetworkMethodType) {
+        if type == .Request {
+            defaultManager.queuedRequests.removeFirst()
+        } else {
+            defaultManager.queuedResponses.removeFirst()
+        }
+
+        if defaultManager.tryPresentingSomething() == false {
+            EndpointLogger.keyWindow?.makeKeyAndVisible()
+        }
     }
 }
