@@ -40,7 +40,6 @@ internal typealias InterceptResponseCompletion = () -> ()
     }()
 
     private var queuedRequests = [QueuedRequest]() // { didSet { print("Request: \(queuedRequests.count)") } }
-
     private var queuedResponses = [QueuedResponse]() // { didSet { print("Response: \(queuedResponses.count)") } }
 
     private override init() {
