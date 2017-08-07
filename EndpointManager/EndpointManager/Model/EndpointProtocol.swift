@@ -135,7 +135,7 @@ internal extension URLSession {
 
     internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask,
                              didReceive response: URLResponse,
-                                                completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+                             completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
 
         self.fullResponse.response = response
 

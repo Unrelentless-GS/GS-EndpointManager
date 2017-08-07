@@ -127,20 +127,23 @@ internal typealias InterceptResponseCompletion = () -> ()
     }
 
     fileprivate func tryPresentingSomething() -> Bool {
-        if queuedResponses.count == 0 && queuedRequests.count == 0 { return false }
+        if self.queuedResponses.count == 0 && self.queuedRequests.count == 0 { return false }
 
-        let viewController = EndpointLoggerInterceptedViewController()
-
-        if queuedRequests.count > 0 {
-            viewController.request = queuedRequests.first!.request
-            viewController.requestCompletion = queuedRequests.first!.completion
-            viewController.type = .request
-        } else if queuedResponses.count > 0 {
-            viewController.response = queuedResponses.first!.reponse
-            viewController.responseCompletion = queuedResponses.first!.completion
-            viewController.type = .response
-        }
         DispatchQueue.main.async {
+            let `self` = self
+            
+            let viewController = EndpointLoggerInterceptedViewController()
+
+            if self.queuedRequests.count > 0 {
+                viewController.request = self.queuedRequests.first!.request
+                viewController.requestCompletion = self.queuedRequests.first!.completion
+                viewController.type = .request
+            } else if self.queuedResponses.count > 0 {
+                viewController.response = self.queuedResponses.first!.reponse
+                viewController.responseCompletion = self.queuedResponses.first!.completion
+                viewController.type = .response
+            }
+
             let navController = UINavigationController(rootViewController: viewController)
             self.loggerWindow.rootViewController = navController
             self.loggerWindow.makeKeyAndVisible()
