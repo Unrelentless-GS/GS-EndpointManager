@@ -16,7 +16,7 @@ class FancyTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func fill() {
-        radioButton.animateFill(inverse: false)
+    func fill(inverse: Bool) {
+        radioButton.animateFill(inverse: inverse)
     }
 }

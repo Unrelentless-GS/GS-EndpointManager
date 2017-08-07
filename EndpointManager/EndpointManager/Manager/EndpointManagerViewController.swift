@@ -98,8 +98,9 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
     fileprivate func updateSelections(_ row: Int?) {
         for i in 0..<endpointTableView.numberOfRows(inSection: 0) {
-            let cell = endpointTableView.cellForRow(at: IndexPath(row: i, section: 0))
+            let cell = endpointTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? FancyTableViewCell
             cell?.highlight(i == row)
+            cell?.fill(inverse: i != row)
         }
     }
 }
@@ -137,9 +138,6 @@ extension EndpointManagerViewController {
         guard let endpoints = EndpointManager.endpoints else { return }
         selectedEndpoint = endpoints[indexPath.row]
         updateSelections(selectedIndex)
-
-        let cell = endpointTableView.cellForRow(at: indexPath) as! FancyTableViewCell
-        cell.fill()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

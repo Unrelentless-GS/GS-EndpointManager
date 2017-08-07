@@ -14,8 +14,9 @@ let radioClear = UIColor.clear
 
 class RadioButton: UIView {
 
-    var circleLayer: CAShapeLayer?
-    var borderLayer: CAShapeLayer?
+    private var circleLayer: CAShapeLayer?
+    private var borderLayer: CAShapeLayer?
+    private var isHighlighted = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,23 +75,31 @@ class RadioButton: UIView {
     }
 
     func animateFill(inverse: Bool) {
+        guard isHighlighted == inverse else { return }
+
         let centre = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height / 2)
 
         circleLayer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         circleLayer?.position = centre
 
         let animcolor = CABasicAnimation(keyPath: "fillColor")
-        animcolor.fromValue = inverse ? radioClear.cgColor : radioFill.cgColor
-        animcolor.toValue = inverse ? radioFill.cgColor : radioClear.cgColor
-        animcolor.duration = 1.0
+        animcolor.fromValue = inverse ? radioFill.cgColor : radioClear.cgColor
+        animcolor.toValue = inverse ? radioClear.cgColor : radioFill.cgColor
+        animcolor.duration = 0.5
+        animcolor.fillMode = kCAFillModeForwards
+        animcolor.isRemovedOnCompletion = false
 
         let transform = CABasicAnimation(keyPath: "transform")
-        transform.fromValue = inverse ? CATransform3DMakeScale(1, 1, 1) : CATransform3DMakeScale(1, 1, 1)
+        transform.fromValue = inverse ? CATransform3DMakeScale(1, 1, 1) : CATransform3DMakeScale(0, 0, 1)
         transform.toValue = inverse ? CATransform3DMakeScale(0, 0, 1) : CATransform3DMakeScale(1, 1, 1)
-        transform.duration = 1.0
+        transform.duration = 0.5
+        transform.fillMode = kCAFillModeForwards
+        transform.isRemovedOnCompletion = false
 
         circleLayer?.add(animcolor, forKey: "animcolor")
         circleLayer?.add(transform, forKey: "transform")
+
+        isHighlighted = !isHighlighted
     }
 
     override func layoutSubviews() {
