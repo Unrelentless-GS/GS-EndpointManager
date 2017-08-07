@@ -21,6 +21,7 @@
 		12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */; };
 		12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */; };
 		12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70891F380330001A5C3B /* RadioButton.swift */; };
+		12E7350E1F38303B00EE5EDA /* BoringHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
 		12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
 		12BC70891F380330001A5C3B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */,
 				12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */,
 				12BC70891F380330001A5C3B /* RadioButton.swift */,
+				12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */,
 				12910A4D1EA837EC002974D5 /* EndpointLogger.swift in Sources */,
 				12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */,
+				12E7350E1F38303B00EE5EDA /* BoringHeaderView.swift in Sources */,
 				12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */,
 				12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */,
 				12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */,

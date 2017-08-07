@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class EndpointManagerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+internal class EndpointManagerViewController: UIViewController {
 
     fileprivate let endpointTableView = UITableView()
 
@@ -19,6 +19,8 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
     fileprivate var selectedEndpoint: Endpoint?
 
+    private var circleLayer: CAShapeLayer?
+
     override internal func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +28,7 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
         endpointTableView.dataSource = self
         endpointTableView.delegate = self
+        endpointTableView.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
 
         endpointTableView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -49,6 +52,11 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
         endpointTableView.estimatedRowHeight = 100
 
         genNavButtons()
+
+
+        let headerView = BoringHeaderView(frame: CGRect(x: 0, y: 0, width: endpointTableView.frame.size.width, height: 80))
+        endpointTableView.tableHeaderView = headerView
+        endpointTableView.tableFooterView = UIView()
     }
 
     override internal func viewDidAppear(_ animated: Bool) {
@@ -99,14 +107,13 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
     fileprivate func updateSelections(_ row: Int?) {
         for i in 0..<endpointTableView.numberOfRows(inSection: 0) {
             let cell = endpointTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? FancyTableViewCell
-            cell?.highlight(i == row)
             cell?.fill(inverse: i != row)
         }
     }
 }
 
 //MARK: datasource
-extension EndpointManagerViewController {
+extension EndpointManagerViewController: UITableViewDataSource {
 
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EndpointManager.endpoints?.count ?? 0
@@ -115,12 +122,12 @@ extension EndpointManagerViewController {
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! FancyTableViewCell
 
-//        if cell == nil {
-//            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-//        }
+        //        if cell == nil {
+        //            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        //        }
 
-//        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
-//        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
+        //        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
+        //        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
 
         return cell
     }
@@ -131,7 +138,7 @@ extension EndpointManagerViewController {
 }
 
 //MARK: delegate
-extension EndpointManagerViewController {
+extension EndpointManagerViewController: UITableViewDelegate {
 
     internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
