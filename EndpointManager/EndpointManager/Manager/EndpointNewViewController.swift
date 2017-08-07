@@ -8,8 +8,8 @@
 
 import UIKit
 
-internal enum URLError: ErrorType {
-    case MalformedURL
+internal enum URLError: Error {
+    case malformedURL
 }
 
 internal typealias EndpointCompletion = (Endpoint?, URLError?) -> ()
@@ -24,7 +24,7 @@ internal class EndpointNewViewController: UIViewController {
     let urlLabel = UILabel()
     let urlTextField = UITextField()
 
-    let button = UIButton(type: .System)
+    let button = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +32,17 @@ internal class EndpointNewViewController: UIViewController {
         nameLabel.text = "Name"
         urlLabel.text = "Base URL"
 
-        nameTextField.borderStyle = .RoundedRect
+        nameTextField.borderStyle = .roundedRect
         nameTextField.adjustsFontSizeToFitWidth = true
         nameTextField.minimumFontSize = 1.0
-        urlTextField.borderStyle = .RoundedRect
+        urlTextField.borderStyle = .roundedRect
         urlTextField.adjustsFontSizeToFitWidth = true
         urlTextField.minimumFontSize = 1.0
 
-        button.setTitle("Done", forState: .Normal)
+        button.setTitle("Done", for: UIControlState())
         button.backgroundColor = UIColor(red: 56.0/255, green: 142.0/255, blue: 241.0/255, alpha: 1.0)
-        button.tintColor = .whiteColor()
-        button.addTarget(self, action: #selector(doneHandler), forControlEvents: .TouchUpInside)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(doneHandler), for: .touchUpInside)
 
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -54,52 +54,52 @@ internal class EndpointNewViewController: UIViewController {
             self.view.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
 
-            constraints += NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:|-16-[name]-16-|",
+            constraints += NSLayoutConstraint.constraints(
+                withVisualFormat: "H:|-16-[name]-16-|",
                 options: [],
                 metrics: nil,
                 views: ["name": view])
         }
 
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-20-[name(30)]-2-[nameText(==name)]-10-[url(==name)]-2-[urlText(==name)]->=20@200-[button(60)]|",
+        constraints += NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-20-[name(30)]-2-[nameText(==name)]-10-[url(==name)]-2-[urlText(==name)]->=20@200-[button(60)]|",
             options: [],
             metrics: nil,
             views: ["name": nameLabel, "nameText": nameTextField, "url": urlLabel, "urlText": urlTextField, "button": button])
 
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[name]|",
+        constraints += NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[name]|",
             options: [],
             metrics: nil,
             views: ["name": button])
 
-        NSLayoutConstraint.activateConstraints(constraints)
+        NSLayoutConstraint.activate(constraints)
     }
 
-    @objc private func doneHandler() {
+    @objc fileprivate func doneHandler() {
         guard let text = urlTextField.text else { return }
-        guard let url = NSURL(string: text) where UIApplication.sharedApplication().canOpenURL(url) else {
-            completion?(nil, .MalformedURL)
+        guard let url = URL(string: text), UIApplication.shared.canOpenURL(url) else {
+            completion?(nil, .malformedURL)
 
             let animation = CABasicAnimation(keyPath: "backgroundColor")
-            animation.toValue = UIColor.redColor().CGColor
+            animation.toValue = UIColor.red.cgColor
             animation.duration = 0.5
             animation.autoreverses = true
 
-            urlTextField.layer.addAnimation(animation, forKey: "animation")
+            urlTextField.layer.add(animation, forKey: "animation")
             return
         }
         let endpoint = Endpoint(name: nameTextField.text, url: url)
         completion?(endpoint, nil)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
 extension EndpointNewViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

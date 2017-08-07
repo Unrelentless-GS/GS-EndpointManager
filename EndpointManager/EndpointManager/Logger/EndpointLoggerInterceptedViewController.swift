@@ -9,21 +9,21 @@
 import UIKit
 
 internal enum NetworkMethodType {
-    case Request
-    case Response
+    case request
+    case response
 }
 
 internal class EndpointLoggerInterceptedViewController: UIViewController {
 
-    internal var type: NetworkMethodType = .Request
+    internal var type: NetworkMethodType = .request
     
-    internal weak var request: NSURLRequest?
+    internal var request: URLRequest?
     internal var response: EndpointResponse?
 
     internal var requestCompletion: InterceptRequestCompletion?
     internal var responseCompletion: InterceptResponseCompletion?
 
-    private var textView = UITextView()
+    fileprivate var textView = UITextView()
 
     override internal func viewDidLoad() {
         super.viewDidLoad()
@@ -34,37 +34,37 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
 
         view.addSubview(textView)
 
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|[textView]|",
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|[textView]|",
             options: [],
             metrics: nil,
             views: ["textView": textView]))
 
-        NSLayoutConstraint.activateConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[textView]|",
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[textView]|",
             options: [],
             metrics: nil,
             views: ["textView": textView]))
 
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
 
         genNavButtons()
 
-        if type == .Request {
+        if type == .request {
             genRequest()
-        } else if type == .Response {
+        } else if type == .response {
             genResponse()
         }
     }
 
-    private func genRequest() {
+    fileprivate func genRequest() {
         var string = ""
 
-        string += "\((request?.URL?.absoluteString)!)\n\n"
+        string += "\((request?.url?.absoluteString)!)\n\n"
         string += "\((request?.allHTTPHeaderFields)!)\n\n"
 
-        if let body = request?.HTTPBody {
-            if let dataString = String(data: body, encoding: NSUTF8StringEncoding) {
+        if let body = request?.httpBody {
+            if let dataString = String(data: body, encoding: String.Encoding.utf8) {
                 string += dataString
             }
         }
@@ -72,28 +72,28 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
         textView.text = string
     }
 
-    private func genResponse() {
+    fileprivate func genResponse() {
 
         var string = ""
 
-        if let absoluteString = response?.response?.URL?.absoluteString {
+        if let absoluteString = response?.response?.url?.absoluteString {
             string += "\(absoluteString)\n\n"
         }
 
-        if let response = response?.response as? NSHTTPURLResponse {
+        if let response = response?.response as? HTTPURLResponse {
             string += "\((response.allHeaderFields))\n\n"
         }
 
         if let data = response?.data {
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                let json = try JSONSerialization.jsonObject(with: data as Data, options: [])
                 if json is [AnyObject] {
                     string += "\(json as! [AnyObject])\n\n"
                 } else {
                     string += "\(json as! [String: AnyObject])\n\n"
                 }
             } catch {
-                if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
+                if let dataString = String(data: data as Data, encoding: String.Encoding.utf8) {
                     string += dataString
                 }
             }
@@ -106,14 +106,14 @@ internal class EndpointLoggerInterceptedViewController: UIViewController {
         textView.text = string
     }
 
-    @objc private func doneHandler() {
+    @objc fileprivate func doneHandler() {
         EndpointLogger.dismiss(fromType: type)
         responseCompletion?()
         requestCompletion?(nil)
     }
 
-    private func genNavButtons() {
-        let doneButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action: #selector(doneHandler))
+    fileprivate func genNavButtons() {
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneHandler))
         self.navigationItem.leftBarButtonItem = doneButton
     }
     

@@ -9,19 +9,19 @@
 import Foundation
 import ObjectiveC.runtime
 
-internal extension NSURLSession {
+internal extension URLSession {
 
-    @objc class func swizzledInit(configuration: NSURLSessionConfiguration) -> NSURLSession {
+    @objc class func swizzledInit(_ configuration: URLSessionConfiguration) -> URLSession {
         let swizzledConfig = configuration
         var classes = swizzledConfig.protocolClasses
-        classes?.insert(EndpointProtocol.self, atIndex: 0)
+        classes?.insert(EndpointProtocol.self, at: 0)
         swizzledConfig.protocolClasses = classes
 
-        return NSURLSession.swizzledInit(swizzledConfig)
+        return URLSession.swizzledInit(swizzledConfig)
     }
 
     @objc class func endpointManagerNSURLSessionSwizzle() {
-        let selector = #selector(NSURLSession.init(configuration:))
+        let selector = #selector(URLSession.init(configuration:))
 
         let originalInit = class_getClassMethod(self, selector)
         let swizzledInit = class_getClassMethod(self, #selector(swizzledInit(_:)))
@@ -33,61 +33,61 @@ internal extension NSURLSession {
 
 //private var bodyValues = [ String : NSData]()
 
-@objc internal class EndpointProtocol: NSURLProtocol, NSURLSessionDataDelegate, NSURLSessionTaskDelegate {
+@objc internal class EndpointProtocol: URLProtocol, URLSessionDataDelegate, URLSessionTaskDelegate {
 
-    private static let magicFunUniqueKey = NSUUID().UUIDString
+    fileprivate static let magicFunUniqueKey = UUID().uuidString
 
-    private var dataTask: NSURLSessionTask?
-    private var urlResponse: NSURLResponse?
-    private var newRequest: NSMutableURLRequest?
+    fileprivate var dataTask: URLSessionTask?
+    fileprivate var urlResponse: URLResponse?
+    fileprivate var newRequest: NSMutableURLRequest?
 
-    private var fullResponse = EndpointResponse()
+    fileprivate var fullResponse = EndpointResponse()
 
-    private lazy var defaultSession: NSURLSession = {
-        let defaultConfigObj = NSURLSessionConfiguration.defaultSessionConfiguration()
-        return NSURLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
+    fileprivate lazy var defaultSession: Foundation.URLSession = {
+        let defaultConfigObj = URLSessionConfiguration.default
+        return Foundation.URLSession(configuration: defaultConfigObj, delegate: self, delegateQueue: nil)
     }()
 
-    override internal class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        guard NSURLProtocol.propertyForKey(magicFunUniqueKey, inRequest: request) == nil else { return false }
+    override internal class func canInit(with request: URLRequest) -> Bool {
+        guard URLProtocol.property(forKey: magicFunUniqueKey, in: request) == nil else { return false }
         guard let endpoints = EndpointLogger.monitoredEndpoints else { return false }
-        guard let urlString = request.URL?.absoluteString else { return false }
+        guard let urlString = request.url?.absoluteString else { return false }
 
         let monitoredURLs = endpoints.flatMap{$0.url?.absoluteString}
-        let shouldMonitor = monitoredURLs.contains{urlString.containsString($0)}
+        let shouldMonitor = monitoredURLs.contains{urlString.contains($0)}
 
-        if let method = request.HTTPMethod where shouldMonitor == true {
-            EndpointLogger.log(title: "Can init with: \(method)", message: request.URL?.absoluteString)
+        if let method = request.httpMethod, shouldMonitor == true {
+            EndpointLogger.log(title: "Can init with: \(method)", message: request.url?.absoluteString as AnyObject)
         }
 
         return shouldMonitor
     }
 
-    override internal class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+    override internal class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
 
     override internal func startLoading() {
 
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
 
         EndpointLogger.presentWindow(forRequest: self.request) { [weak self] updatedRequest in
 
-            let newRequest = updatedRequest ?? self?.request.mutableCopy() as! NSMutableURLRequest
+            let newRequest = updatedRequest ?? (self?.request as! NSMutableURLRequest)
 
-            NSURLProtocol.setProperty("true?", forKey: EndpointProtocol.magicFunUniqueKey, inRequest: newRequest)
+            URLProtocol.setProperty("true?", forKey: EndpointProtocol.magicFunUniqueKey, in: newRequest)
 
             self?.newRequest = newRequest
 
-            if let stream = self?.request.HTTPBodyStream {
+            if let stream = self?.request.httpBodyStream {
                 stream.open()
                 if stream.hasBytesAvailable == true {
                     let data: NSMutableData = NSMutableData()
 
-                    var buffer = [UInt8](count: 8, repeatedValue: 0)
+                    var buffer = [UInt8](repeating: 0, count: 8)
                     var result: Int = stream.read(&buffer, maxLength: buffer.count)
                     repeat {
-                        data.appendBytes(buffer, length: 8)
+                        data.append(buffer, length: 8)
                         result = stream.read(&buffer, maxLength: buffer.count)
                     } while result != 0
 
@@ -105,17 +105,17 @@ internal extension NSURLSession {
              }
              */
 
-            let bodyData = self?.request.HTTPBody
+            let bodyData = self?.request.httpBody
 
             EndpointLogger.log(title: "Started loading with body: ", message: bodyData)
 
-            self?.dataTask = self?.defaultSession.dataTaskWithRequest(newRequest)
+            self?.dataTask = self?.defaultSession.dataTask(with: (newRequest as URLRequest))
             self?.dataTask?.resume()
 
-            dispatch_semaphore_signal(semaphore)
+            semaphore.signal()
         }
 
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        let _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
 
     override internal func stopLoading() {
@@ -133,56 +133,58 @@ internal extension NSURLSession {
 
     // MARK: NSURLSessionDataDelegate
 
-    internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask,
-                             didReceiveResponse response: NSURLResponse,
-                                                completionHandler: (NSURLSessionResponseDisposition) -> Void) {
+    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask,
+                             didReceive response: URLResponse,
+                                                completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
 
         self.fullResponse.response = response
 
         EndpointLogger.log(title: "Did receieve response: ", message: response)
 
-        self.client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: .NotAllowed)
+        self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
 
         self.urlResponse = response
 
-        completionHandler(.Allow)
+        completionHandler(.allow)
     }
 
-    internal func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         self.fullResponse.data = data
 
-        EndpointLogger.log(title: "Did receieve data: ", message: data)
+        EndpointLogger.log(title: "Did receieve data: ", message: data as AnyObject)
         EndpointLogger.presentWindow(forResponse: self.fullResponse) {
-            self.client?.URLProtocol(self, didLoadData: data)
+            self.client?.urlProtocol(self, didLoad: data)
         }
     }
 
-    internal func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+    internal func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-            let credential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
-            completionHandler(.UseCredential,credential);
+            let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+            completionHandler(.useCredential,credential);
         }
-        completionHandler(.PerformDefaultHandling, nil)
+        completionHandler(.performDefaultHandling, nil)
     }
 
-    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-        completionHandler(.UseCredential, nil)
+    internal func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        completionHandler(.useCredential, nil)
     }
 
     // MARK: NSURLSessionTaskDelegate
 
-    internal func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        guard error != nil else { return }
+    internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        guard let error = error else { return }
 
-        self.fullResponse.error = error
+        let nsError = error as NSError
 
-        EndpointLogger.log(title: "Did complete with error: ", message: error?.localizedDescription)
+        self.fullResponse.error = nsError
+
+        EndpointLogger.log(title: "Did complete with error: ", message: error.localizedDescription as AnyObject)
         EndpointLogger.presentWindow(forResponse: self.fullResponse) {
-            if error != nil && error!.code != NSURLErrorCancelled {
-                self.client?.URLProtocol(self, didFailWithError: error!)
+            if nsError.code != NSURLErrorCancelled {
+                self.client?.urlProtocol(self, didFailWithError: nsError)
             } else {
-                self.client?.URLProtocolDidFinishLoading(self)
+                self.client?.urlProtocolDidFinishLoading(self)
             }
         }
     }

@@ -17,32 +17,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        view.backgroundColor = .cyanColor()
+        view.backgroundColor = .cyan
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(endpointDidChange), name: EndpointManager.EndpointChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(endpointDidChange), name: NSNotification.Name(rawValue: EndpointManager.EndpointChangedNotification), object: nil)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: EndpointManager.EndpointChangedNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: EndpointManager.EndpointChangedNotification), object: nil)
     }
 
     @IBAction func testNetwork(sender: AnyObject) {
-        EndpointLogger.monitor([Endpoint(name: nil, url: NSURL(string: "jsonplaceholder.typicode.com"))])
+        EndpointLogger.monitor([Endpoint(name: nil, url: URL(string: "jsonplaceholder.typicode.com"))])
 
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let session = URLSession(configuration: URLSessionConfiguration.default)
         
-        let request1 = NSMutableURLRequest(URL: NSURL(string: "https://jsonplaceholder.typicode.com/posts")!)
-        let request2 = NSMutableURLRequest(URL: NSURL(string: "https://jsonplaceholder.typicode.com/posts")!)
+        let request1 = NSMutableURLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/posts")!)
+        let request2 = NSMutableURLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/posts")!)
 
-        request2.HTTPMethod = "POST"
-        request2.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(["title": "Hello", "body": "Something", "userId": "Bleh"], options: .PrettyPrinted)
+        request2.httpMethod = "POST"
+        request2.httpBody = try? JSONSerialization.data(withJSONObject: ["title": "Hello", "body": "Something", "userId": "Bleh"], options: .prettyPrinted)
 
-        session.dataTaskWithRequest(request1).resume()
-        session.dataTaskWithRequest(request2).resume()
+        session.dataTask(with: request1 as URLRequest).resume()
+        session.dataTask(with: request2 as URLRequest).resume()
     }
 
     @IBAction func touchMe(sender: UIButton) {
-        EndpointManager.presentEndpointManagerFrom(UIApplication.sharedApplication().keyWindow!)
+        EndpointManager.presentEndpointManagerFrom(UIApplication.shared.keyWindow!)
     }
 
     @objc private func endpointDidChange() {

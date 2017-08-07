@@ -14,25 +14,25 @@ internal class EndpointDataManager {
 
     static func saveEndpoints() {
         if let endpoints = EndpointManager.endpoints {
-            let encodedEndpoints = NSKeyedArchiver.archivedDataWithRootObject(endpoints)
-            NSUserDefaults.standardUserDefaults().setObject(encodedEndpoints, forKey: EndpointManagerSaveKey)
+            let encodedEndpoints = NSKeyedArchiver.archivedData(withRootObject: endpoints)
+            UserDefaults.standard.set(encodedEndpoints, forKey: EndpointManagerSaveKey)
         }
 
         if let selectedEndpoint = EndpointManager.selectedEndpoint {
-            let encodedSelectedEndpoint = NSKeyedArchiver.archivedDataWithRootObject(selectedEndpoint)
-            NSUserDefaults.standardUserDefaults().setObject(encodedSelectedEndpoint, forKey: EndpointManagerSaveSelectedKey)
+            let encodedSelectedEndpoint = NSKeyedArchiver.archivedData(withRootObject: selectedEndpoint)
+            UserDefaults.standard.set(encodedSelectedEndpoint, forKey: EndpointManagerSaveSelectedKey)
         }
     }
 
     static func loadEndpoints() -> [Endpoint]? {
-        guard let endpointsData = NSUserDefaults.standardUserDefaults().objectForKey(EndpointManagerSaveKey) as? NSData else { return nil }
-        let endpoints = NSKeyedUnarchiver.unarchiveObjectWithData(endpointsData) as? [Endpoint]
+        guard let endpointsData = UserDefaults.standard.object(forKey: EndpointManagerSaveKey) as? Data else { return nil }
+        let endpoints = NSKeyedUnarchiver.unarchiveObject(with: endpointsData) as? [Endpoint]
         return endpoints
     }
 
     static func loadSelectedEndpoint() -> Endpoint? {
-        guard let selectedEndpointData = NSUserDefaults.standardUserDefaults().objectForKey(EndpointManagerSaveSelectedKey) as? NSData else { return nil }
-        let endpoint = NSKeyedUnarchiver.unarchiveObjectWithData(selectedEndpointData) as? Endpoint
+        guard let selectedEndpointData = UserDefaults.standard.object(forKey: EndpointManagerSaveSelectedKey) as? Data else { return nil }
+        let endpoint = NSKeyedUnarchiver.unarchiveObject(with: selectedEndpointData) as? Endpoint
         return endpoint
     }
 }

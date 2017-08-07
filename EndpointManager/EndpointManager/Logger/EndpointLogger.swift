@@ -11,22 +11,22 @@ internal typealias InterceptResponseCompletion = () -> ()
 
 
 /// Your one point of contact with the logger
-@objc public class EndpointLogger: NSObject {
+@objc open class EndpointLogger: NSObject {
 
     /// Whether you want the logger to print to console
-    public static var logToConsole: Bool = false
+    open static var logToConsole: Bool = false
 
     /// Whether you want to intercept and display all requests
-    public static var interceptAndDisplayRequest: Bool = false
+    open static var interceptAndDisplayRequest: Bool = false
 
     /// Whether you want to intercept and display all responses
-    public static var interceptAndDisplayResponse: Bool = false
+    open static var interceptAndDisplayResponse: Bool = false
 
     /// A reference to the keyWindow. Pass in your working keyWindow otherwise, intercepting and presenting **will not work**
-    public static weak var keyWindow: UIWindow?
+    open static weak var keyWindow: UIWindow?
 
     internal static var defaultManager = EndpointLogger()
-    internal var monitoredEndpoints = [Endpoint]?()
+    internal var monitoredEndpoints = [Endpoint]()
 
     internal static var monitoredEndpoints: [Endpoint]? {
         get {
@@ -34,17 +34,17 @@ internal typealias InterceptResponseCompletion = () -> ()
         }
     }
 
-    private lazy var loggerWindow: UIWindow = {
-        let frame = UIApplication.sharedApplication().keyWindow?.frame
+    fileprivate lazy var loggerWindow: UIWindow = {
+        let frame = UIApplication.shared.keyWindow?.frame
         return UIWindow(frame: frame!)
     }()
 
-    private var queuedRequests = [QueuedRequest]() // { didSet { print("Request: \(queuedRequests.count)") } }
-    private var queuedResponses = [QueuedResponse]() // { didSet { print("Response: \(queuedResponses.count)") } }
+    fileprivate var queuedRequests = [QueuedRequest]() // { didSet { print("Request: \(queuedRequests.count)") } }
+    fileprivate var queuedResponses = [QueuedResponse]() // { didSet { print("Response: \(queuedResponses.count)") } }
 
-    private override init() {
-        NSURLProtocol.registerClass(EndpointProtocol.self)
-        NSURLSession.endpointManagerNSURLSessionSwizzle()
+    fileprivate override init() {
+        URLProtocol.registerClass(EndpointProtocol.self)
+        URLSession.endpointManagerNSURLSessionSwizzle()
         /* NSMutableURLRequest.endpointManagerHTTPBodySwizzle() */
     }
 
@@ -77,24 +77,24 @@ internal typealias InterceptResponseCompletion = () -> ()
      https://someURL.io/second
      ```
      */
-    public static func monitor(endpoints: [Endpoint]) {
+    open static func monitor(_ endpoints: [Endpoint]) {
         defaultManager.monitoredEndpoints = endpoints
     }
 
-    internal static func log(title title: String, message: AnyObject?) {
+    internal static func log(title: String, message: Any?) {
         guard var message = message else { return }
         guard logToConsole == true else { return }
-        if let data = message as? NSData {
+        if let data = message as? Data {
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
                 if json is [AnyObject] {
-                    message = "\(json as! [AnyObject])\n\n"
+                    message = "\(json as! [AnyObject])\n\n" as AnyObject
                 } else {
-                    message = "\(json as! [String: AnyObject])\n\n"
+                    message = "\(json as! [String: AnyObject])\n\n" as AnyObject
                 }
             } catch {
-                if let dataString = String(data: data, encoding: NSUTF8StringEncoding) {
-                    message = dataString
+                if let dataString = String(data: data, encoding: String.Encoding.utf8) {
+                    message = dataString as AnyObject
                 }
             }
         }
@@ -106,27 +106,27 @@ internal typealias InterceptResponseCompletion = () -> ()
         print("****************************")
     }
 
-    internal static func presentWindow(forRequest request: NSURLRequest, completion: InterceptRequestCompletion) {
+    internal static func presentWindow(forRequest request: URLRequest, completion: @escaping InterceptRequestCompletion) {
         if EndpointLogger.interceptAndDisplayRequest == true {
             let queuedRequest = QueuedRequest(request: request, completion: completion)
             defaultManager.queuedRequests.append(queuedRequest)
-            defaultManager.tryPresentingSomething()
+            let _ = defaultManager.tryPresentingSomething()
         } else {
             completion(nil)
         }
     }
 
-    internal static func presentWindow(forResponse response: EndpointResponse, completion: InterceptResponseCompletion) {
+    internal static func presentWindow(forResponse response: EndpointResponse, completion: @escaping InterceptResponseCompletion) {
         if EndpointLogger.interceptAndDisplayResponse == true {
             let queuedResponse = QueuedResponse(reponse: response, completion: completion)
             defaultManager.queuedResponses.append(queuedResponse)
-            defaultManager.tryPresentingSomething()
+            let _ = defaultManager.tryPresentingSomething()
         } else {
             completion()
         }
     }
 
-    private func tryPresentingSomething() -> Bool {
+    fileprivate func tryPresentingSomething() -> Bool {
         if queuedResponses.count == 0 && queuedRequests.count == 0 { return false }
 
         let viewController = EndpointLoggerInterceptedViewController()
@@ -134,13 +134,13 @@ internal typealias InterceptResponseCompletion = () -> ()
         if queuedRequests.count > 0 {
             viewController.request = queuedRequests.first!.request
             viewController.requestCompletion = queuedRequests.first!.completion
-            viewController.type = .Request
+            viewController.type = .request
         } else if queuedResponses.count > 0 {
             viewController.response = queuedResponses.first!.reponse
             viewController.responseCompletion = queuedResponses.first!.completion
-            viewController.type = .Response
+            viewController.type = .response
         }
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             let navController = UINavigationController(rootViewController: viewController)
             self.loggerWindow.rootViewController = navController
             self.loggerWindow.makeKeyAndVisible()
@@ -150,7 +150,7 @@ internal typealias InterceptResponseCompletion = () -> ()
     }
 
     internal static func dismiss(fromType type: NetworkMethodType) {
-        if type == .Request {
+        if type == .request {
             defaultManager.queuedRequests.removeFirst()
         } else {
             defaultManager.queuedResponses.removeFirst()
