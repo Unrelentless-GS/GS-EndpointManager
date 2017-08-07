@@ -99,6 +99,7 @@
     }
 
     internal func dimiss() {
+        keyWindow?.isHidden = false
         keyWindow?.makeKeyAndVisible()
     }
 }

@@ -11,9 +11,16 @@ import UIKit
 class FancyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var radioButton: RadioButton!
-
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+
+    func toggle(disabled: Bool) {
+        self.titleLabel.textColor = disabled ? UIColor.lightGray : UIColor.black
+        self.subtitleLabel.textColor = disabled ? UIColor.lightGray : UIColor.black
     }
 
     func fill(inverse: Bool) {

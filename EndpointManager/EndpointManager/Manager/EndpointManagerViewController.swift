@@ -28,7 +28,7 @@ internal class EndpointManagerViewController: UIViewController {
 
         endpointTableView.dataSource = self
         endpointTableView.delegate = self
-        endpointTableView.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1)
+        endpointTableView.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
 
         endpointTableView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -52,7 +52,6 @@ internal class EndpointManagerViewController: UIViewController {
         endpointTableView.estimatedRowHeight = 100
 
         genNavButtons()
-
 
         let headerView = BoringHeaderView(frame: CGRect(x: 0, y: 0, width: endpointTableView.frame.size.width, height: 80))
         endpointTableView.tableHeaderView = headerView
@@ -107,7 +106,9 @@ internal class EndpointManagerViewController: UIViewController {
     fileprivate func updateSelections(_ row: Int?) {
         for i in 0..<endpointTableView.numberOfRows(inSection: 0) {
             let cell = endpointTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? FancyTableViewCell
+            cell?.selectionStyle = .none
             cell?.fill(inverse: i != row)
+            cell?.toggle(disabled: i != row)
         }
     }
 }
@@ -122,12 +123,8 @@ extension EndpointManagerViewController: UITableViewDataSource {
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! FancyTableViewCell
 
-        //        if cell == nil {
-        //            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        //        }
-
-        //        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
-        //        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
+        cell.titleLabel?.text = EndpointManager.endpoints?[indexPath.row].name
+        cell.subtitleLabel?.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
 
         return cell
     }

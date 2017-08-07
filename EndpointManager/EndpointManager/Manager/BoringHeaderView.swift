@@ -15,13 +15,12 @@ class BoringHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = #colorLiteral(red: 0.9531012177, green: 0.9531235099, blue: 0.9531114697, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Please select an endpoint that you would like to hit"
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
 
         self.addSubview(label)
 

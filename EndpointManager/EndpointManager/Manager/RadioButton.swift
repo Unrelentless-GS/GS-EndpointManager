@@ -85,14 +85,14 @@ class RadioButton: UIView {
         let animcolor = CABasicAnimation(keyPath: "fillColor")
         animcolor.fromValue = inverse ? radioFill.cgColor : radioClear.cgColor
         animcolor.toValue = inverse ? radioClear.cgColor : radioFill.cgColor
-        animcolor.duration = 0.5
+        animcolor.duration = 0.2
         animcolor.fillMode = kCAFillModeForwards
         animcolor.isRemovedOnCompletion = false
 
         let transform = CABasicAnimation(keyPath: "transform")
         transform.fromValue = inverse ? CATransform3DMakeScale(1, 1, 1) : CATransform3DMakeScale(0, 0, 1)
         transform.toValue = inverse ? CATransform3DMakeScale(0, 0, 1) : CATransform3DMakeScale(1, 1, 1)
-        transform.duration = 0.5
+        transform.duration = 0.2
         transform.fillMode = kCAFillModeForwards
         transform.isRemovedOnCompletion = false
 
