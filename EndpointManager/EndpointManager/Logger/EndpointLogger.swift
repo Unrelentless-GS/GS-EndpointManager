@@ -131,7 +131,7 @@ internal typealias InterceptResponseCompletion = () -> ()
 
         DispatchQueue.main.async {
             let `self` = self
-            
+
             let viewController = EndpointLoggerInterceptedViewController()
 
             if self.queuedRequests.count > 0 {

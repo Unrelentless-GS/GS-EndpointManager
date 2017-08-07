@@ -45,6 +45,9 @@ internal class EndpointManagerViewController: UIViewController, UITableViewDeleg
 
         view.backgroundColor = .white
 
+        endpointTableView.register(UINib(nibName: String(describing: FancyTableViewCell.self), bundle: Bundle(for: FancyTableViewCell.self)), forCellReuseIdentifier: "cell")
+        endpointTableView.estimatedRowHeight = 100
+
         genNavButtons()
     }
 
@@ -109,16 +112,20 @@ extension EndpointManagerViewController {
     }
 
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! FancyTableViewCell
 
-        if cell == nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        }
+//        if cell == nil {
+//            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+//        }
 
-        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
-        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
+//        cell?.textLabel!.text = EndpointManager.endpoints?[indexPath.row].name
+//        cell?.detailTextLabel!.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
 
-        return cell!
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 
@@ -130,6 +137,9 @@ extension EndpointManagerViewController {
         guard let endpoints = EndpointManager.endpoints else { return }
         selectedEndpoint = endpoints[indexPath.row]
         updateSelections(selectedIndex)
+
+        let cell = endpointTableView.cellForRow(at: indexPath) as! FancyTableViewCell
+        cell.fill()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

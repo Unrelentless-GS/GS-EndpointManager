@@ -18,6 +18,9 @@
 		12910A541EA837EC002974D5 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4A1EA837EC002974D5 /* Endpoint.swift */; };
 		12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */; };
 		12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4C1EA837EC002974D5 /* EndpointResponse.swift */; };
+		12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */; };
+		12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */; };
+		12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70891F380330001A5C3B /* RadioButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		12910A4A1EA837EC002974D5 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		12910A4C1EA837EC002974D5 /* EndpointResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointResponse.swift; sourceTree = "<group>"; };
+		12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
+		12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
+		12BC70891F380330001A5C3B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,9 @@
 				12910A461EA837EC002974D5 /* EndpointManagerViewController.swift */,
 				12910A471EA837EC002974D5 /* EndpointNewViewController.swift */,
 				12910A481EA837EC002974D5 /* EndpointTableViewCell.swift */,
+				12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */,
+				12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */,
+				12BC70891F380330001A5C3B /* RadioButton.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -144,7 +153,7 @@
 		126C4B291E67DC3400D634AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Pavel Boryseiko";
 				TargetAttributes = {
 					126C4B311E67DC3400D634AF = {
@@ -175,6 +184,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,10 +198,12 @@
 				12910A521EA837EC002974D5 /* EndpointNewViewController.swift in Sources */,
 				12910A501EA837EC002974D5 /* EndpointManager.swift in Sources */,
 				12910A541EA837EC002974D5 /* Endpoint.swift in Sources */,
+				12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */,
 				12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */,
 				12910A4D1EA837EC002974D5 /* EndpointLogger.swift in Sources */,
 				12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */,
 				12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */,
+				12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */,
 				12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */,
 				12910A511EA837EC002974D5 /* EndpointManagerViewController.swift in Sources */,
 				12910A4F1EA837EC002974D5 /* EndpointDataManager.swift in Sources */,
@@ -210,14 +222,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -261,14 +279,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

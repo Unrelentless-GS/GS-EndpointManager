@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 
         let session = URLSession(configuration: URLSessionConfiguration.default)
         
-        let request1 = NSMutableURLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/posts")!)
+        let request1 = NSMutableURLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/comments?postId=1")!)
         let request2 = NSMutableURLRequest(url: URL(string: "https://jsonplaceholder.typicode.com/posts")!)
 
         request2.httpMethod = "POST"
