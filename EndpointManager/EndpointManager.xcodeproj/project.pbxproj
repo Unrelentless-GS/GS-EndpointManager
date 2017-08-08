@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		126C4B361E67DC3400D634AF /* EndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 126C4B351E67DC3400D634AF /* EndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		128C6D641F3845FB00592928 /* EndpointNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 128C6D621F3845FB00592928 /* EndpointNewViewController.xib */; };
+		128C6D661F38479E00592928 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128C6D651F38479E00592928 /* FancyTextField.swift */; };
 		12910A4D1EA837EC002974D5 /* EndpointLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A411EA837EC002974D5 /* EndpointLogger.swift */; };
 		12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */; };
 		12910A4F1EA837EC002974D5 /* EndpointDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A441EA837EC002974D5 /* EndpointDataManager.swift */; };
@@ -28,6 +30,8 @@
 		126C4B321E67DC3400D634AF /* EndpointManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EndpointManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		126C4B351E67DC3400D634AF /* EndpointManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndpointManager.h; sourceTree = "<group>"; };
 		126C4B371E67DC3400D634AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		128C6D621F3845FB00592928 /* EndpointNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndpointNewViewController.xib; sourceTree = "<group>"; };
+		128C6D651F38479E00592928 /* FancyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
 		12910A411EA837EC002974D5 /* EndpointLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLogger.swift; sourceTree = "<group>"; };
 		12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLoggerInterceptedViewController.swift; sourceTree = "<group>"; };
 		12910A441EA837EC002974D5 /* EndpointDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointDataManager.swift; sourceTree = "<group>"; };
@@ -99,11 +103,13 @@
 				12910A451EA837EC002974D5 /* EndpointManager.swift */,
 				12910A461EA837EC002974D5 /* EndpointManagerViewController.swift */,
 				12910A471EA837EC002974D5 /* EndpointNewViewController.swift */,
+				128C6D621F3845FB00592928 /* EndpointNewViewController.xib */,
 				12910A481EA837EC002974D5 /* EndpointTableViewCell.swift */,
 				12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */,
 				12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */,
 				12BC70891F380330001A5C3B /* RadioButton.swift */,
 				12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */,
+				128C6D651F38479E00592928 /* FancyTextField.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -188,6 +194,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				128C6D641F3845FB00592928 /* EndpointNewViewController.xib in Resources */,
 				12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +217,7 @@
 				12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */,
 				12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */,
 				12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */,
+				128C6D661F38479E00592928 /* FancyTextField.swift in Sources */,
 				12910A511EA837EC002974D5 /* EndpointManagerViewController.swift in Sources */,
 				12910A4F1EA837EC002974D5 /* EndpointDataManager.swift in Sources */,
 			);

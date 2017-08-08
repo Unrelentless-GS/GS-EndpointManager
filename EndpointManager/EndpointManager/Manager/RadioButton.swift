@@ -8,9 +8,10 @@
 
 import UIKit
 
-let radioFill = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-let radioOutline = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-let radioClear = UIColor.clear
+internal let myGreen = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+internal let myRed = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+internal let myOutline = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+internal let myClear = UIColor.clear
 
 class RadioButton: UIView {
 
@@ -40,7 +41,7 @@ class RadioButton: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
 
-        shapeLayer.strokeColor = radioOutline.cgColor
+        shapeLayer.strokeColor = myOutline.cgColor
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineWidth = 1.0
 
@@ -83,8 +84,8 @@ class RadioButton: UIView {
         circleLayer?.position = centre
 
         let animcolor = CABasicAnimation(keyPath: "fillColor")
-        animcolor.fromValue = inverse ? radioFill.cgColor : radioClear.cgColor
-        animcolor.toValue = inverse ? radioClear.cgColor : radioFill.cgColor
+        animcolor.fromValue = inverse ? myGreen.cgColor : myClear.cgColor
+        animcolor.toValue = inverse ? myClear.cgColor : myGreen.cgColor
         animcolor.duration = 0.2
         animcolor.fillMode = kCAFillModeForwards
         animcolor.isRemovedOnCompletion = false

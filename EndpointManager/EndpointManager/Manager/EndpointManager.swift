@@ -61,6 +61,7 @@
 
     //This prevents others from using the default '()' initializer for this class.
     fileprivate override init() {
+        super.init()
         self.endpoints = [Endpoint]()
     }
 

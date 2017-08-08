@@ -23,6 +23,8 @@ internal class EndpointManagerViewController: UIViewController {
 
     override internal func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.barTintColor = myGreen
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
         title = "Endpoint Manager"
 
@@ -74,9 +76,11 @@ internal class EndpointManagerViewController: UIViewController {
     }
 
     @objc fileprivate func newHandler(_ item: UIBarButtonItem) {
-        let newVC = EndpointNewViewController()
-        newVC.modalPresentationStyle = .popover
-        newVC.preferredContentSize = CGSize(width: 200, height: 400)
+        let newVC = EndpointNewViewController(nibName: String(describing: EndpointNewViewController.self), bundle: Bundle(for: EndpointNewViewController.self))
+
+        let navVC = UINavigationController(rootViewController: newVC)
+        navVC.modalPresentationStyle = .formSheet
+
         newVC.completion = { [unowned self] endpoint, error in
             guard error == nil else { return }
             guard let validEndpoint = endpoint else { return }
@@ -87,12 +91,7 @@ internal class EndpointManagerViewController: UIViewController {
             self.updateSelections(self.selectedIndex)
         }
 
-        let popover = newVC.popoverPresentationController
-        popover?.barButtonItem = item
-        popover?.sourceRect = CGRect(x: 100, y: 100, width: 0, height: 0)
-        popover?.delegate = newVC
-
-        self.showDetailViewController(newVC, sender: self)
+        self.showDetailViewController(navVC, sender: self)
     }
 
     fileprivate func genNavButtons() {
@@ -101,6 +100,9 @@ internal class EndpointManagerViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = doneButton
         self.navigationItem.rightBarButtonItem = newButton
+
+        doneButton.tintColor = UIColor.white
+        newButton.tintColor = UIColor.white
     }
 
     fileprivate func updateSelections(_ row: Int?) {
