@@ -10,6 +10,8 @@ import UIKit
 
 class EndpointLoggerDataViewController: UIViewController {
 
+    fileprivate let sectionArray = ["Method", "Header", "Body"]
+
     fileprivate let tableView = UITableView(frame: .zero, style: .grouped)
 
     override func viewDidLoad() {
@@ -48,6 +50,9 @@ class EndpointLoggerDataViewController: UIViewController {
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(BoringSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(UINib(nibName: String(describing: BoringSegmentedTableViewCell.self),
+                                 bundle: Bundle(for: BoringSegmentedTableViewCell.self)),
+                           forCellReuseIdentifier: "segmented")
 
         genNavButtons()
     }
@@ -75,7 +80,7 @@ class EndpointLoggerDataViewController: UIViewController {
 extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,10 +88,24 @@ extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "cell")!
+
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+
+        switch indexPath.section {
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "segmented")!
+        default:
+            break
+        }
+
+        cell.selectionStyle = .none
+
+        return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! BoringSectionHeaderView
+        header.label.text = sectionArray[section]
+        return header
     }
 }

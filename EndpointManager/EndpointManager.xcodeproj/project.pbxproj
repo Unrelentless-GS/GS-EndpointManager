@@ -22,6 +22,8 @@
 		12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4C1EA837EC002974D5 /* EndpointResponse.swift */; };
 		129EFCA41F3997030072ED3F /* EndpointLoggerDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */; };
 		129EFCA61F3997B50072ED3F /* BoringSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */; };
+		129EFCA91F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */; };
+		129EFCAA1F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */; };
 		12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */; };
 		12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */; };
 		12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70891F380330001A5C3B /* RadioButton.swift */; };
@@ -46,6 +48,8 @@
 		12910A4C1EA837EC002974D5 /* EndpointResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointResponse.swift; sourceTree = "<group>"; };
 		129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointLoggerDataViewController.swift; sourceTree = "<group>"; };
 		129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSectionHeaderView.swift; sourceTree = "<group>"; };
+		129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSegmentedTableViewCell.swift; sourceTree = "<group>"; };
+		129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoringSegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
 		12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
 		12BC70891F380330001A5C3B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 				12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */,
 				129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */,
 				129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */,
+				129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */,
+				129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				129EFCAA1F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib in Resources */,
 				128C6D641F3845FB00592928 /* EndpointNewViewController.xib in Resources */,
 				12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */,
 			);
@@ -223,6 +230,7 @@
 				12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */,
 				12E7350E1F38303B00EE5EDA /* BoringHeaderView.swift in Sources */,
 				12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */,
+				129EFCA91F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift in Sources */,
 				12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */,
 				12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */,
 				128C6D661F38479E00592928 /* FancyTextField.swift in Sources */,
