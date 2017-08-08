@@ -72,7 +72,6 @@ class FancyTextField: UITextField, UITextFieldDelegate {
         underline.frame = CGRect(origin: underline.frame.origin,
                                  size: CGSize(width: underline.frame.size.width,
                                               height: 2))
-
     }
 
     //MARK: OTHER

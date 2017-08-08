@@ -20,6 +20,8 @@
 		12910A541EA837EC002974D5 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4A1EA837EC002974D5 /* Endpoint.swift */; };
 		12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */; };
 		12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4C1EA837EC002974D5 /* EndpointResponse.swift */; };
+		129EFCA41F3997030072ED3F /* EndpointLoggerDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */; };
+		129EFCA61F3997B50072ED3F /* BoringSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */; };
 		12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */; };
 		12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */; };
 		12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70891F380330001A5C3B /* RadioButton.swift */; };
@@ -42,6 +44,8 @@
 		12910A4A1EA837EC002974D5 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		12910A4C1EA837EC002974D5 /* EndpointResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointResponse.swift; sourceTree = "<group>"; };
+		129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointLoggerDataViewController.swift; sourceTree = "<group>"; };
+		129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSectionHeaderView.swift; sourceTree = "<group>"; };
 		12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
 		12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
 		12BC70891F380330001A5C3B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 			children = (
 				12910A411EA837EC002974D5 /* EndpointLogger.swift */,
 				12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */,
+				129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */,
+				129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -206,7 +212,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				129EFCA41F3997030072ED3F /* EndpointLoggerDataViewController.swift in Sources */,
 				12910A521EA837EC002974D5 /* EndpointNewViewController.swift in Sources */,
+				129EFCA61F3997B50072ED3F /* BoringSectionHeaderView.swift in Sources */,
 				12910A501EA837EC002974D5 /* EndpointManager.swift in Sources */,
 				12910A541EA837EC002974D5 /* Endpoint.swift in Sources */,
 				12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */,
