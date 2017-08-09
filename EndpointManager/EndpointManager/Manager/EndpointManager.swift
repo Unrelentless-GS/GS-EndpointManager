@@ -17,6 +17,8 @@
     
     public static let EndpointChangedNotification = "GSEndpointChangedNotification"
 
+    internal static var defaultManager = EndpointManager()
+
     /// The array of endpoints
     public static var endpoints: [Endpoint]? {
         get {
@@ -31,7 +33,7 @@
         }
         set {
             defaultManager.selectedEndpoint = newValue
-            NSNotificationCenter.defaultCenter().postNotificationName(EndpointChangedNotification, object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: EndpointChangedNotification), object: nil)
         }
     }
 
@@ -41,25 +43,25 @@
         }
     }
 
-    internal static var defaultManager = EndpointManager()
-
-    internal var endpoints = [Endpoint]?() {
+    internal var endpoints = [Endpoint]() {
         didSet {
             if selectedEndpointIndex == nil {
                 selectedEndpoint = nil
             }
         }
     }
+
     internal var window = UIWindow()
     internal var selectedEndpoint: Endpoint?
     internal var selectedEndpointIndex: Int? {
-        return self.endpoints?.indexOf{$0.name == self.selectedEndpoint?.name}
+        return self.endpoints.index{$0.name == self.selectedEndpoint?.name}
     }
 
-    private weak var privateWindow: UIWindow?
+    fileprivate weak var keyWindow: UIWindow?
 
     //This prevents others from using the default '()' initializer for this class.
-    private override init() {
+    fileprivate override init() {
+        super.init()
         self.endpoints = [Endpoint]()
     }
 
@@ -68,7 +70,7 @@
 
      - parameter endpoints: an array of endpoints
      */
-    public static func populateEndpoints(endpoints: [Endpoint]) {
+    public static func populate(_ endpoints: [Endpoint]) {
         if let existingEndpoints = EndpointDataManager.loadEndpoints() {
             defaultManager.endpoints = existingEndpoints
             defaultManager.selectedEndpoint = EndpointDataManager.loadSelectedEndpoint()
@@ -82,8 +84,8 @@
 
      - parameter window: a reference to your current working window. if in doubt, pass in **`UIApplication.sharedApplication().keyWindow`**
      */
-    public static func presentEndpointManagerFrom(window: UIWindow) {
-        defaultManager.privateWindow = window
+    public static func presentEndpointManagerFrom(_ window: UIWindow) {
+        defaultManager.keyWindow = window
 
         defaultManager.window.frame = window.bounds
         let vc = EndpointManagerViewController()
@@ -98,6 +100,7 @@
     }
 
     internal func dimiss() {
-        privateWindow?.makeKeyAndVisible()
+        keyWindow?.isHidden = false
+        keyWindow?.makeKeyAndVisible()
     }
 }

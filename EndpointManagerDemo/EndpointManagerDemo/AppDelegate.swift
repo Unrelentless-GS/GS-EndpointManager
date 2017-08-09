@@ -14,16 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
 
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let endpoint1 = Endpoint(name: "Instance 0", url: URL(string: "https://google.com.au"))
+        let endpoint2 = Endpoint(name: "Instance 1", url: URL(string: "https://instance1.com"))
+        let endpoint3 = Endpoint(name: "Instance 2", url: URL(string: "https://instance2.com"))
 
-        let endpoint1 = Endpoint(name: "Instance 0", url: NSURL(string: "https://instance0"))
-        let endpoint2 = Endpoint(name: "Instance 1", url: NSURL(string: "https://instance1"))
-        let endpoint3 = Endpoint(name: "Instance 2", url: NSURL(string: "https://instance2"))
-
-        EndpointManager.populateEndpoints([endpoint1, endpoint2, endpoint3])
+        EndpointManager.populate([endpoint1, endpoint2, endpoint3])
+        EndpointLogger.monitor([endpoint1, endpoint2, endpoint3])
+        EndpointLogger.logToConsole = false
+        EndpointLogger.interceptAndDisplayRequest = true
+        EndpointLogger.interceptAndDisplayResponse = true
+        EndpointLogger.keyWindow = window
 
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
