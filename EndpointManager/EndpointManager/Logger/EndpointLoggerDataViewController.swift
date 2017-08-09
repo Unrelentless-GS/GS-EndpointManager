@@ -15,8 +15,8 @@ internal enum NetworkMethodType {
 
 class EndpointLoggerDataViewController: UIViewController {
 
-    fileprivate let sectionArray = ["Method", "Header", "Body"]
-    fileprivate let tableView = UITableView(frame: .zero, style: .grouped)
+    fileprivate let sectionArray = ["URL", "Method", "Header", "Body"]
+    fileprivate let tableView = UITableView(frame: .zero, style: .plain)
 
     internal var type: NetworkMethodType = .request
 
@@ -38,7 +38,8 @@ class EndpointLoggerDataViewController: UIViewController {
         tableView.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.tableHeaderView = UIView(frame: .zero)
 
         view.addSubview(tableView)
 
@@ -57,7 +58,6 @@ class EndpointLoggerDataViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.862745098, green: 0.862745098, blue: 0.862745098, alpha: 1)
 
         tableView.estimatedRowHeight = 100
-        tableView.sectionHeaderHeight = 40
         tableView.sectionFooterHeight = 0
         tableView.rowHeight = UITableViewAutomaticDimension
 
@@ -73,52 +73,49 @@ class EndpointLoggerDataViewController: UIViewController {
         genNavButtons()
     }
 
-    fileprivate func genRequest() -> String {
+    func headers() -> String {
         var string = ""
 
-        string += "\((request?.url?.absoluteString)!)\n\n"
-        string += "\((request?.allHTTPHeaderFields)!)\n\n"
+        switch type {
+        case .request:
+            if let headers = request?.allHTTPHeaderFields {
+                string += "\(headers)"
+            }
+        case .response:
+            if let response = response?.response as? HTTPURLResponse {
+                let keys = Array(response.allHeaderFields.keys).flatMap{$0.base}
+                let values = Array(response.allHeaderFields.values)
+                let test = zip(keys, values)
 
-        if let body = request?.httpBody {
-            if let dataString = String(data: body, encoding: String.Encoding.utf8) {
-                string += dataString
+                test.forEach { (key, value) in
+                    string += "\(key): \(value)\n"
+                }
             }
         }
-
         return string
     }
 
-    fileprivate func genResponse() -> String {
-
+    func body() -> String {
         var string = ""
 
-        if let absoluteString = response?.response?.url?.absoluteString {
-            string += "\(absoluteString)\n\n"
-        }
-
-        if let response = response?.response as? HTTPURLResponse {
-            string += "\((response.allHeaderFields))\n\n"
-        }
-
-        if let data = response?.data {
-            do {
-                let json = try JSONSerialization.jsonObject(with: data as Data, options: [])
-                if json is [AnyObject] {
-                    string += "\(json as! [AnyObject])\n\n"
-                } else {
-                    string += "\(json as! [String: AnyObject])\n\n"
+        switch type {
+        case .request:
+            if let body = request?.httpBody {
+                if let dataString = String(data: body, encoding: String.Encoding.utf8) {
+                    string += dataString
                 }
-            } catch {
+            }
+        case .response:
+            if let data = response?.data {
                 if let dataString = String(data: data as Data, encoding: String.Encoding.utf8) {
                     string += dataString
                 }
             }
-        }
 
-        if let error = response?.error {
-            string += "\(error.localizedDescription)\n\n"
+            if let error = response?.error {
+                string += "\(error.localizedDescription)"
+            }
         }
-
         return string
     }
 
@@ -149,11 +146,15 @@ class EndpointLoggerDataViewController: UIViewController {
 extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,7 +164,8 @@ extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "textView") as! BoringTextViewTableViewCell
             cell.selectionStyle = .none
             cell.textView.delegate = self
-            cell.textView.text = type == .request ? String(describing: request?.url!) : String(describing: response?.response?.url!)
+            cell.textView.text = type == .request ? String(describing: (request?.url)!) : String(describing: (response?.response?.url)!)
+            return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "segmented")!
             cell.selectionStyle = .none
@@ -172,13 +174,13 @@ extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "textView") as! BoringTextViewTableViewCell
             cell.selectionStyle = .none
             cell.textView.delegate = self
-            cell.textView.text = type == .request ? String(describing: request?.allHTTPHeaderFields) : String(describing: response?.response)
+            cell.textView.text = headers()
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "textView") as! BoringTextViewTableViewCell
             cell.selectionStyle = .none
             cell.textView.delegate = self
-            cell.textView.text = type == .request ? genRequest() : genResponse()
+            cell.textView.text = body()
             return cell
         default:
             break
