@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -45,14 +44,13 @@
             </subviews>
             <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="G82-ti-tSd" secondAttribute="trailing" constant="8" id="3Ln-bg-PtU"/>
-                <constraint firstItem="G82-ti-tSd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="3s4-49-tlx"/>
+                <constraint firstAttribute="trailing" secondItem="G82-ti-tSd" secondAttribute="trailing" constant="8" id="3Ln-bg-PtU"/>
+                <constraint firstItem="G82-ti-tSd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="3s4-49-tlx"/>
                 <constraint firstItem="G82-ti-tSd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9hm-99-Mlc"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G82-ti-tSd" secondAttribute="bottom" constant="20" id="Bzl-ha-0Ip"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="G82-ti-tSd" secondAttribute="bottom" constant="20" id="Bzl-ha-0Ip"/>
                 <constraint firstItem="G82-ti-tSd" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="GVb-Gq-XrH"/>
-                <constraint firstItem="G82-ti-tSd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="oW4-io-uOB"/>
+                <constraint firstItem="G82-ti-tSd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="oW4-io-uOB"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
 </document>

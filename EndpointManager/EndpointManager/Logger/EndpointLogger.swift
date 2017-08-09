@@ -133,17 +133,16 @@ internal typealias InterceptResponseCompletion = () -> ()
             let `self` = self
 
             let viewController = EndpointLoggerDataViewController()
-//            let viewController = EndpointLoggerInterceptedViewController()
-//
-//            if self.queuedRequests.count > 0 {
-//                viewController.request = self.queuedRequests.first!.request
-//                viewController.requestCompletion = self.queuedRequests.first!.completion
-//                viewController.type = .request
-//            } else if self.queuedResponses.count > 0 {
-//                viewController.response = self.queuedResponses.first!.reponse
-//                viewController.responseCompletion = self.queuedResponses.first!.completion
-//                viewController.type = .response
-//            }
+
+            if self.queuedRequests.count > 0 {
+                viewController.request = self.queuedRequests.first!.request
+                viewController.requestCompletion = self.queuedRequests.first!.completion
+                viewController.type = .request
+            } else if self.queuedResponses.count > 0 {
+                viewController.response = self.queuedResponses.first!.reponse
+                viewController.responseCompletion = self.queuedResponses.first!.completion
+                viewController.type = .response
+            }
 
             let navController = UINavigationController(rootViewController: viewController)
             self.loggerWindow.rootViewController = navController

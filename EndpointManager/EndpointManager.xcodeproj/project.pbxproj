@@ -9,25 +9,26 @@
 /* Begin PBXBuildFile section */
 		126C4B361E67DC3400D634AF /* EndpointManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 126C4B351E67DC3400D634AF /* EndpointManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		128C6D641F3845FB00592928 /* EndpointNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 128C6D621F3845FB00592928 /* EndpointNewViewController.xib */; };
-		128C6D661F38479E00592928 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128C6D651F38479E00592928 /* FancyTextField.swift */; };
 		12910A4D1EA837EC002974D5 /* EndpointLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A411EA837EC002974D5 /* EndpointLogger.swift */; };
-		12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */; };
 		12910A4F1EA837EC002974D5 /* EndpointDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A441EA837EC002974D5 /* EndpointDataManager.swift */; };
 		12910A501EA837EC002974D5 /* EndpointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A451EA837EC002974D5 /* EndpointManager.swift */; };
 		12910A511EA837EC002974D5 /* EndpointManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A461EA837EC002974D5 /* EndpointManagerViewController.swift */; };
 		12910A521EA837EC002974D5 /* EndpointNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A471EA837EC002974D5 /* EndpointNewViewController.swift */; };
-		12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A481EA837EC002974D5 /* EndpointTableViewCell.swift */; };
 		12910A541EA837EC002974D5 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4A1EA837EC002974D5 /* Endpoint.swift */; };
 		12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */; };
 		12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12910A4C1EA837EC002974D5 /* EndpointResponse.swift */; };
+		129ADFCC1F3A9D25009ED088 /* BoringHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFBA1F3A9CD6009ED088 /* BoringHeaderView.swift */; };
+		129ADFCD1F3A9D25009ED088 /* EndpointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFBB1F3A9CD6009ED088 /* EndpointTableViewCell.swift */; };
+		129ADFCE1F3A9D25009ED088 /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFBC1F3A9CD6009ED088 /* FancyTableViewCell.swift */; };
+		129ADFCF1F3A9D25009ED088 /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129ADFBD1F3A9CD6009ED088 /* FancyTableViewCell.xib */; };
+		129ADFD01F3A9D25009ED088 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFBE1F3A9CD6009ED088 /* FancyTextField.swift */; };
+		129ADFD11F3A9D25009ED088 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFBF1F3A9CD6009ED088 /* RadioButton.swift */; };
+		129ADFD21F3A9D2A009ED088 /* BoringSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFC11F3A9CEE009ED088 /* BoringSectionHeaderView.swift */; };
+		129ADFD31F3A9D2A009ED088 /* BoringSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFC21F3A9CEE009ED088 /* BoringSegmentedTableViewCell.swift */; };
+		129ADFD41F3A9D2A009ED088 /* BoringSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129ADFC31F3A9CEE009ED088 /* BoringSegmentedTableViewCell.xib */; };
+		129ADFD51F3A9D2A009ED088 /* BoringTextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129ADFC41F3A9CEE009ED088 /* BoringTextViewTableViewCell.swift */; };
+		129ADFD61F3A9D2A009ED088 /* BoringTextViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129ADFC51F3A9CEE009ED088 /* BoringTextViewTableViewCell.xib */; };
 		129EFCA41F3997030072ED3F /* EndpointLoggerDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */; };
-		129EFCA61F3997B50072ED3F /* BoringSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */; };
-		129EFCA91F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */; };
-		129EFCAA1F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */; };
-		12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */; };
-		12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */; };
-		12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC70891F380330001A5C3B /* RadioButton.swift */; };
-		12E7350E1F38303B00EE5EDA /* BoringHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,25 +36,26 @@
 		126C4B351E67DC3400D634AF /* EndpointManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndpointManager.h; sourceTree = "<group>"; };
 		126C4B371E67DC3400D634AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		128C6D621F3845FB00592928 /* EndpointNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndpointNewViewController.xib; sourceTree = "<group>"; };
-		128C6D651F38479E00592928 /* FancyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
 		12910A411EA837EC002974D5 /* EndpointLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLogger.swift; sourceTree = "<group>"; };
-		12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointLoggerInterceptedViewController.swift; sourceTree = "<group>"; };
 		12910A441EA837EC002974D5 /* EndpointDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointDataManager.swift; sourceTree = "<group>"; };
 		12910A451EA837EC002974D5 /* EndpointManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointManager.swift; sourceTree = "<group>"; };
 		12910A461EA837EC002974D5 /* EndpointManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointManagerViewController.swift; sourceTree = "<group>"; };
 		12910A471EA837EC002974D5 /* EndpointNewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointNewViewController.swift; sourceTree = "<group>"; };
-		12910A481EA837EC002974D5 /* EndpointTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTableViewCell.swift; sourceTree = "<group>"; };
 		12910A4A1EA837EC002974D5 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		12910A4B1EA837EC002974D5 /* EndpointProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointProtocol.swift; sourceTree = "<group>"; };
 		12910A4C1EA837EC002974D5 /* EndpointResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointResponse.swift; sourceTree = "<group>"; };
+		129ADFBA1F3A9CD6009ED088 /* BoringHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringHeaderView.swift; sourceTree = "<group>"; };
+		129ADFBB1F3A9CD6009ED088 /* EndpointTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTableViewCell.swift; sourceTree = "<group>"; };
+		129ADFBC1F3A9CD6009ED088 /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
+		129ADFBD1F3A9CD6009ED088 /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
+		129ADFBE1F3A9CD6009ED088 /* FancyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
+		129ADFBF1F3A9CD6009ED088 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		129ADFC11F3A9CEE009ED088 /* BoringSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSectionHeaderView.swift; sourceTree = "<group>"; };
+		129ADFC21F3A9CEE009ED088 /* BoringSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSegmentedTableViewCell.swift; sourceTree = "<group>"; };
+		129ADFC31F3A9CEE009ED088 /* BoringSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoringSegmentedTableViewCell.xib; sourceTree = "<group>"; };
+		129ADFC41F3A9CEE009ED088 /* BoringTextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringTextViewTableViewCell.swift; sourceTree = "<group>"; };
+		129ADFC51F3A9CEE009ED088 /* BoringTextViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoringTextViewTableViewCell.xib; sourceTree = "<group>"; };
 		129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointLoggerDataViewController.swift; sourceTree = "<group>"; };
-		129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSectionHeaderView.swift; sourceTree = "<group>"; };
-		129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringSegmentedTableViewCell.swift; sourceTree = "<group>"; };
-		129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoringSegmentedTableViewCell.xib; sourceTree = "<group>"; };
-		12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTableViewCell.swift; sourceTree = "<group>"; };
-		12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FancyTableViewCell.xib; sourceTree = "<group>"; };
-		12BC70891F380330001A5C3B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
-		12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoringHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,12 +100,9 @@
 		12910A401EA837EC002974D5 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
+				129ADFC01F3A9CEE009ED088 /* Views */,
 				12910A411EA837EC002974D5 /* EndpointLogger.swift */,
-				12910A421EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift */,
 				129EFCA31F3997030072ED3F /* EndpointLoggerDataViewController.swift */,
-				129EFCA51F3997B50072ED3F /* BoringSectionHeaderView.swift */,
-				129EFCA71F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift */,
-				129EFCA81F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -111,17 +110,12 @@
 		12910A431EA837EC002974D5 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				129ADFB91F3A9CD6009ED088 /* Views */,
 				12910A441EA837EC002974D5 /* EndpointDataManager.swift */,
 				12910A451EA837EC002974D5 /* EndpointManager.swift */,
 				12910A461EA837EC002974D5 /* EndpointManagerViewController.swift */,
 				12910A471EA837EC002974D5 /* EndpointNewViewController.swift */,
 				128C6D621F3845FB00592928 /* EndpointNewViewController.xib */,
-				12910A481EA837EC002974D5 /* EndpointTableViewCell.swift */,
-				12BC70851F3802FA001A5C3B /* FancyTableViewCell.swift */,
-				12BC70861F3802FA001A5C3B /* FancyTableViewCell.xib */,
-				12BC70891F380330001A5C3B /* RadioButton.swift */,
-				12E7350D1F38303B00EE5EDA /* BoringHeaderView.swift */,
-				128C6D651F38479E00592928 /* FancyTextField.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -134,6 +128,31 @@
 				12910A4C1EA837EC002974D5 /* EndpointResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		129ADFB91F3A9CD6009ED088 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				129ADFBA1F3A9CD6009ED088 /* BoringHeaderView.swift */,
+				129ADFBB1F3A9CD6009ED088 /* EndpointTableViewCell.swift */,
+				129ADFBC1F3A9CD6009ED088 /* FancyTableViewCell.swift */,
+				129ADFBD1F3A9CD6009ED088 /* FancyTableViewCell.xib */,
+				129ADFBE1F3A9CD6009ED088 /* FancyTextField.swift */,
+				129ADFBF1F3A9CD6009ED088 /* RadioButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		129ADFC01F3A9CEE009ED088 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				129ADFC11F3A9CEE009ED088 /* BoringSectionHeaderView.swift */,
+				129ADFC21F3A9CEE009ED088 /* BoringSegmentedTableViewCell.swift */,
+				129ADFC31F3A9CEE009ED088 /* BoringSegmentedTableViewCell.xib */,
+				129ADFC41F3A9CEE009ED088 /* BoringTextViewTableViewCell.swift */,
+				129ADFC51F3A9CEE009ED088 /* BoringTextViewTableViewCell.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,9 +225,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				129EFCAA1F399FCB0072ED3F /* BoringSegmentedTableViewCell.xib in Resources */,
+				129ADFD61F3A9D2A009ED088 /* BoringTextViewTableViewCell.xib in Resources */,
+				129ADFD41F3A9D2A009ED088 /* BoringSegmentedTableViewCell.xib in Resources */,
 				128C6D641F3845FB00592928 /* EndpointNewViewController.xib in Resources */,
-				12BC70881F3802FA001A5C3B /* FancyTableViewCell.xib in Resources */,
+				129ADFCF1F3A9D25009ED088 /* FancyTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,21 +240,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				129EFCA41F3997030072ED3F /* EndpointLoggerDataViewController.swift in Sources */,
+				129ADFD31F3A9D2A009ED088 /* BoringSegmentedTableViewCell.swift in Sources */,
+				129ADFD11F3A9D25009ED088 /* RadioButton.swift in Sources */,
 				12910A521EA837EC002974D5 /* EndpointNewViewController.swift in Sources */,
-				129EFCA61F3997B50072ED3F /* BoringSectionHeaderView.swift in Sources */,
 				12910A501EA837EC002974D5 /* EndpointManager.swift in Sources */,
 				12910A541EA837EC002974D5 /* Endpoint.swift in Sources */,
-				12BC708A1F380330001A5C3B /* RadioButton.swift in Sources */,
+				129ADFD01F3A9D25009ED088 /* FancyTextField.swift in Sources */,
+				129ADFCD1F3A9D25009ED088 /* EndpointTableViewCell.swift in Sources */,
+				129ADFD51F3A9D2A009ED088 /* BoringTextViewTableViewCell.swift in Sources */,
 				12910A551EA837EC002974D5 /* EndpointProtocol.swift in Sources */,
 				12910A4D1EA837EC002974D5 /* EndpointLogger.swift in Sources */,
-				12910A4E1EA837EC002974D5 /* EndpointLoggerInterceptedViewController.swift in Sources */,
-				12E7350E1F38303B00EE5EDA /* BoringHeaderView.swift in Sources */,
-				12910A531EA837EC002974D5 /* EndpointTableViewCell.swift in Sources */,
-				129EFCA91F399FCB0072ED3F /* BoringSegmentedTableViewCell.swift in Sources */,
-				12BC70871F3802FA001A5C3B /* FancyTableViewCell.swift in Sources */,
+				129ADFCE1F3A9D25009ED088 /* FancyTableViewCell.swift in Sources */,
+				129ADFCC1F3A9D25009ED088 /* BoringHeaderView.swift in Sources */,
 				12910A561EA837EC002974D5 /* EndpointResponse.swift in Sources */,
-				128C6D661F38479E00592928 /* FancyTextField.swift in Sources */,
 				12910A511EA837EC002974D5 /* EndpointManagerViewController.swift in Sources */,
+				129ADFD21F3A9D2A009ED088 /* BoringSectionHeaderView.swift in Sources */,
 				12910A4F1EA837EC002974D5 /* EndpointDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
