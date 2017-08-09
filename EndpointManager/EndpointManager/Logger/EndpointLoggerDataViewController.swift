@@ -13,6 +13,26 @@ internal enum NetworkMethodType {
     case response
 }
 
+internal enum NetworkMethod: String {
+    case get
+    case post
+    case put
+    case patch
+
+    var segmentIndex: Int {
+        switch self {
+        case .get:
+            return 0
+        case .post:
+            return 2
+        case .patch:
+            return 3
+        case .put:
+            return 1
+        }
+    }
+}
+
 class EndpointLoggerDataViewController: UIViewController {
 
     fileprivate let sectionArray = ["URL", "Method", "Header", "Body"]
@@ -73,6 +93,11 @@ class EndpointLoggerDataViewController: UIViewController {
         genNavButtons()
     }
 
+    func method() -> Int {
+        guard let method = request?.httpMethod else { return 0 }
+        return NetworkMethod(rawValue: method.lowercased())!.segmentIndex
+    }
+
     func headers() -> String {
         var string = ""
 
@@ -114,6 +139,21 @@ class EndpointLoggerDataViewController: UIViewController {
 
             if let error = response?.error {
                 string += "\(error.localizedDescription)"
+            }
+        }
+        return string
+    }
+
+
+    func url() -> String {
+        var string = ""
+
+        switch type {
+        case .request:
+            string += request?.url?.absoluteString ?? ""
+        case .response:
+            if let response = response?.response as? HTTPURLResponse {
+                string += response.url?.absoluteString ?? ""
             }
         }
         return string
@@ -164,11 +204,12 @@ extension EndpointLoggerDataViewController: UITableViewDataSource, UITableViewDe
             let cell = tableView.dequeueReusableCell(withIdentifier: "textView") as! BoringTextViewTableViewCell
             cell.selectionStyle = .none
             cell.textView.delegate = self
-            cell.textView.text = type == .request ? String(describing: (request?.url)!) : String(describing: (response?.response?.url)!)
+            cell.textView.text = url()
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "segmented")!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "segmented") as! BoringSegmentedTableViewCell
             cell.selectionStyle = .none
+            cell.segmentedControl.selectedSegmentIndex = method()
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "textView") as! BoringTextViewTableViewCell
