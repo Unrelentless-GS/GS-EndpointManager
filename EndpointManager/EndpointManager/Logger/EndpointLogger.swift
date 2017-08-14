@@ -45,6 +45,7 @@ internal typealias InterceptResponseCompletion = () -> ()
     fileprivate override init() {
         URLProtocol.registerClass(EndpointProtocol.self)
         URLSession.endpointManagerNSURLSessionSwizzle()
+        URLSession.endpointManagerNSURLSessionSwizzleCustomConfig()
         /* NSMutableURLRequest.endpointManagerHTTPBodySwizzle() */
     }
 

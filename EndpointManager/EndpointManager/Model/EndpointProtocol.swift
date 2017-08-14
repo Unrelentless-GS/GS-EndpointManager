@@ -20,11 +20,29 @@ internal extension URLSession {
         return URLSession.swizzledInit(swizzledConfig)
     }
 
+    @objc class func swizzledSpecialConfigInit(_ configuration: URLSessionConfiguration, delegate: URLSessionDelegate?, delegateQueue: OperationQueue?) -> URLSession {
+        let swizzledConfig = configuration
+        var classes = swizzledConfig.protocolClasses
+        classes?.insert(EndpointProtocol.self, at: 0)
+        swizzledConfig.protocolClasses = classes
+
+        return URLSession.swizzledSpecialConfigInit(configuration, delegate: delegate, delegateQueue: delegateQueue)
+    }
+
     @objc class func endpointManagerNSURLSessionSwizzle() {
         let selector = #selector(URLSession.init(configuration:))
 
         let originalInit = class_getClassMethod(self, selector)
         let swizzledInit = class_getClassMethod(self, #selector(swizzledInit(_:)))
+
+        method_exchangeImplementations(originalInit, swizzledInit)
+    }
+
+    @objc class func endpointManagerNSURLSessionSwizzleCustomConfig() {
+        let selector = #selector(URLSession.init(configuration:delegate:delegateQueue:))
+
+        let originalInit = class_getClassMethod(self, selector)
+        let swizzledInit = class_getClassMethod(self, #selector(swizzledSpecialConfigInit(_:delegate:delegateQueue:)))
 
         method_exchangeImplementations(originalInit, swizzledInit)
     }
