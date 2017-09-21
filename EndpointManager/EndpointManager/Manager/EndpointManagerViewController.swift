@@ -14,7 +14,7 @@ internal class EndpointManagerViewController: UIViewController {
 
     fileprivate var selectedIndex: Int? {
         guard let endpoints = EndpointManager.endpoints, let selectedEndpoint = selectedEndpoint else { return nil }
-        return endpoints.index{($0.name == selectedEndpoint.name) && ($0.url == selectedEndpoint.url)}
+        return endpoints.index{($0.name == selectedEndpoint.name) && ($0.url?.absoluteString == selectedEndpoint.url?.absoluteString)}
     }
 
     fileprivate var selectedEndpoint: Endpoint?
@@ -64,7 +64,6 @@ internal class EndpointManagerViewController: UIViewController {
         super.viewDidAppear(animated)
 
         selectedEndpoint = EndpointManager.selectedEndpoint
-        updateSelections(selectedIndex)
     }
 
     @objc fileprivate func doneHandler() {
@@ -106,6 +105,7 @@ internal class EndpointManagerViewController: UIViewController {
     }
 
     fileprivate func updateSelections(_ row: Int?) {
+        guard let row = row else { return }
         for i in 0..<endpointTableView.numberOfRows(inSection: 0) {
             let cell = endpointTableView.cellForRow(at: IndexPath(row: i, section: 0)) as? FancyTableViewCell
             cell?.selectionStyle = .none
@@ -127,6 +127,8 @@ extension EndpointManagerViewController: UITableViewDataSource {
 
         cell.titleLabel?.text = EndpointManager.endpoints?[indexPath.row].name
         cell.subtitleLabel?.text = EndpointManager.endpoints?[indexPath.row].url?.absoluteString
+        cell.toggle(disabled: indexPath.row != EndpointManager.selectedEndpointIndex)
+        cell.fill(inverse: indexPath.row != EndpointManager.selectedEndpointIndex)
 
         return cell
     }

@@ -27,7 +27,7 @@
     }
 
     /// The selected endpoint
-    internal(set) public static var selectedEndpoint: Endpoint? {
+    public static var selectedEndpoint: Endpoint? {
         get {
             return defaultManager.selectedEndpoint
         }

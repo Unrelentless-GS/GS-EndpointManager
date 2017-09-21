@@ -22,4 +22,9 @@ class FancyTableViewCell: UITableViewCell {
     func fill(inverse: Bool) {
         radioButton.animateFill(inverse: inverse)
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        toggle(disabled: true)
+    }
 }
